@@ -1,3 +1,3 @@
-const eslintConfig = require('@squad_statistics_monorepo/eslint-config')
+const eslintConfig = require('@code-dojo/eslint-config')
 
 module.exports = eslintConfig
