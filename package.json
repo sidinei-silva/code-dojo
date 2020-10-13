@@ -1,0 +1,18 @@
+{
+  "name": "code-dojo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "packages/configs/*"
+    ]
+  },
+  "devDependencies": {
+    "@code-dojo/eslint-config": "*",
+    "typescript": "^4.0.3"
+  },
+  "author": "Sidinei Silva <sidinei.silva02@gmail.com>",
+  "license": "MIT"
+}
