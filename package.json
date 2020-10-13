@@ -10,7 +10,8 @@
     ]
   },
   "devDependencies": {
-    "@code-dojo/eslint-config": "*"
+    "@code-dojo/eslint-config": "*",
+    "typescript": "^4.0.3"
   },
   "author": "Sidinei Silva <sidinei.silva02@gmail.com>",
   "license": "MIT"
