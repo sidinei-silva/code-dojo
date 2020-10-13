@@ -9,6 +9,9 @@
       "packages/configs/*"
     ]
   },
+  "devDependencies": {
+    "@code-dojo/eslint-config": "*"
+  },
   "author": "Sidinei Silva <sidinei.silva02@gmail.com>",
   "license": "MIT"
 }
