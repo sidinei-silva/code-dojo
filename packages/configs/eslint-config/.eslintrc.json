@@ -29,10 +29,12 @@
     "prettier"
   ],
   "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": "off",
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "react/prop-types": "off", 
+    "react/prop-types": "off",
     "import-helpers/order-imports": [
       "warn",
       {
