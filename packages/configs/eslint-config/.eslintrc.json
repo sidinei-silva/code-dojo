@@ -31,13 +31,11 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": "off",
-    // Include .prettierrc.js rules
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "react/prop-types": "off", // We turn off prop-types rule, as we will use TypeScript's types instead.
+    "react/prop-types": "off", 
     "import-helpers/order-imports": [
       "warn",
       {
-        // example configuration
         "newlinesBetween": "always",
         "groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
         "alphabetize": { "order": "asc", "ignoreCase": true }
