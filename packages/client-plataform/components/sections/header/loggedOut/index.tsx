@@ -1,6 +1,7 @@
-import { Box, Flex, Text, Button, Icon, Image } from '@chakra-ui/core';
+import { Box, Flex, Text, Button, Image, Grid } from '@chakra-ui/core';
 import Link from 'next/link';
 import React from 'react';
+import { CgMenuLeftAlt, CgClose } from 'react-icons/cg';
 
 const MenuItems = props => {
   const { children, isLast, to = '/', ...rest } = props;
@@ -8,8 +9,8 @@ const MenuItems = props => {
     <Text
       color="black"
       fontWeight="500"
-      mb={{ base: isLast ? 0 : 4, sm: 0 }}
-      mr={{ base: 0, sm: isLast ? 0 : 8 }}
+      mb={{ base: 4, md: 0 }}
+      px={4}
       display="block"
       {...rest}
     >
@@ -23,81 +24,85 @@ const Header = props => {
   const toggleMenu = () => setShow(!show);
 
   return (
-    <Flex
+    <Grid
+      alignItems="center"
+      templateColumns="repeat(3, 1fr)"
       as="nav"
-      align={['center', 'center', 'flex-end', 'flex-end']}
-      justify="space-between"
-      wrap="wrap"
       w="100%"
-      mb={8}
       padding="1.5rem"
       bg={['primary.500', 'primary.500', 'primary.500', 'primary.500']}
       color={['white', 'black', 'black.700', 'black.700']}
       {...props}
     >
-      <Box>
-        <Image w="70px" src="/img/logo_transparent.png" />
-      </Box>
-
-      <Box display={{ base: 'block', md: 'none' }} onClick={toggleMenu}>
-        {show ? (
-          <Icon name="close" color="black" />
-        ) : (
-          <Icon name="close" color="black" />
-        )}
-      </Box>
-
-      <Box
-        display={{ base: show ? 'block' : 'none', md: 'block' }}
-        flexBasis={{ base: '100%', md: 'auto' }}
+      <Flex
+        gridColumn={3}
+        justify="flex-end"
+        display={{ base: 'flex', md: 'none' }}
+        onClick={toggleMenu}
       >
-        <Flex
-          align={['center', 'center', 'center', 'center']}
-          justify={['center', 'center', 'space-between', 'space-between']}
-          direction={['column', 'column', 'row', 'row']}
-          pt={[4, 4, 0, 0]}
-        >
-          <MenuItems to="/">Home</MenuItems>
-          <MenuItems to="/how">Sobre</MenuItems>
-          <MenuItems to="/news">Novidades</MenuItems>
-          <MenuItems>
-            <Flex
-              wrap="wrap"
-              display={{ base: 'flex', md: 'none' }}
-              direction="column"
-            >
-              <Button
-                mt={2}
-                size="sm"
-                rounded="md"
-                color="white"
-                bg="blue.500"
-                _hover={{
-                  color: 'white',
-                  borderColor: 'blue.300',
-                  boxShadow: 'outline'
-                }}
-              >
-                Entrar
-              </Button>
-              <Button
-                size="sm"
-                mt={2}
-                variant="outline"
-                rounded="md"
-                color="blue.500"
-                _hover={{
-                  boxShadow: 'outline'
-                }}
-              >
-                Cadastrar
-              </Button>
-            </Flex>
-          </MenuItems>
-        </Flex>
-      </Box>
+        {show ? (
+          <Box as={CgClose} size="2em" color="black" />
+        ) : (
+          <Box as={CgMenuLeftAlt} size="2em" color="black" />
+        )}
+      </Flex>
 
-      <Box display={{ base: 'none', md: 'block' }}>
+      <Flex
+        gridColumn={[2, 2, 1, 1]}
+        justify="flex-start"
+        align="center"
+        display={{ base: show ? 'flex' : 'none', md: 'flex' }}
+        pt={[8, 8, 0, 0]}
+        direction={['column', 'column', 'row', 'row']}
+      >
+        <MenuItems to="/">Home</MenuItems>
+        <MenuItems to="/how">Sobre</MenuItems>
+        <MenuItems to="/news">Novidades</MenuItems>
+        <MenuItems>
+          <Flex
+            wrap="wrap"
+            display={{ base: 'flex', md: 'none' }}
+            direction="column"
+          >
+            <Button
+              mt={2}
+              size="sm"
+              rounded="md"
+              color="white"
+              bg="blue.500"
+              _hover={{
+                color: 'white',
+                borderColor: 'blue.300',
+                boxShadow: 'outline'
+              }}
+            >
+              Entrar
+            </Button>
+            <Button
+              size="sm"
+              mt={2}
+              variant="outline"
+              rounded="md"
+              color="blue.500"
+              _hover={{
+                boxShadow: 'outline'
+              }}
+            >
+              Cadastrar
+            </Button>
+          </Flex>
+        </MenuItems>
+      </Flex>
+
+      <Flex
+        w="100%"
+        order={[-1, -1, 0, 0]}
+        justify={['flex-start', 'flex-start', 'center', 'center']}
+      >
+        <Image w="70px" src="/img/logo_transparent.png" />
+      </Flex>
+
+      <Flex display={{ base: 'none', md: 'flex' }} justify="flex-end">
         <Button
           size="sm"
           variant="outline"
@@ -123,8 +128,8 @@ const Header = props => {
         >
           Entrar
         </Button>
-      </Box>
-    </Flex>
+      </Flex>
+    </Grid>
   );
 };
 
