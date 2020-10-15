@@ -1,5 +1,11 @@
 import React from 'react';
 
+import LandingLayout from '../components/layouts/landingLayout';
+
 export default function Home() {
-  return <h1>Hello</h1>;
+  return (
+    <LandingLayout>
+      <h1>Hello</h1>
+    </LandingLayout>
+  );
 }
