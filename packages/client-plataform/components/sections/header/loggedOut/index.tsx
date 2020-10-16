@@ -30,7 +30,7 @@ const Header = props => {
       templateColumns="repeat(3, 1fr)"
       as="nav"
       w="100%"
-      paddingX={{ xl: '330px' }}
+      paddingX={{ xxl: '330px' }}
       padding="1.5rem"
       backgroundColor="rgba(255,255,255,0.5)"
       color={['white', 'black', 'black.700', 'black.700']}
