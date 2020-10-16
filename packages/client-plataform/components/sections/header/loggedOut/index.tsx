@@ -25,12 +25,14 @@ const Header = props => {
 
   return (
     <Grid
+      position={{ base: show ? 'relative' : 'absolute', md: 'absolute' }}
       alignItems="center"
       templateColumns="repeat(3, 1fr)"
       as="nav"
       w="100%"
+      paddingX={{ xxl: '330px' }}
       padding="1.5rem"
-      bg={['primary.500', 'primary.500', 'primary.500', 'primary.500']}
+      backgroundColor="rgba(255,255,255,0.5)"
       color={['white', 'black', 'black.700', 'black.700']}
       {...props}
     >

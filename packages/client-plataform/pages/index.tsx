@@ -10,12 +10,12 @@ export default function Home() {
       <Flex
         as="main"
         w="100vw"
-        height="85vh"
+        height="100vh"
         align="center"
         justify="center"
         backgroundImage="url('/img/bg1.png')"
         backgroundSize="cover"
-        backgroundPosition="center"
+        backgroundPosition="0px -50px"
         backgroundRepeat="no-repeat"
       >
         <Flex
@@ -68,7 +68,7 @@ export default function Home() {
           alignItems="flex-start"
           display={['none', 'none', 'flex', 'flex']}
         >
-          <Image src="/svg/hero-image.svg" height="660px" />
+          <Image src="/svg/hero-image.svg" height="800px" />
         </Flex>
       </Flex>
     </LandingLayout>
