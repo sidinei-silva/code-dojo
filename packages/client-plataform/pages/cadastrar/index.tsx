@@ -4,7 +4,7 @@ import React from 'react';
 import LandingLayout from '../../components/layouts/landingLayout';
 import FormSignUp from '../../components/ui/forms/signUp';
 
-export default function Home() {
+export default function SignUp() {
   return (
     <LandingLayout>
       <Grid
