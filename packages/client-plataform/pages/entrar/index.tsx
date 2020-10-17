@@ -1,10 +1,10 @@
-import { Button, Flex, Box, Heading, Image, Grid } from '@chakra-ui/core';
+import { Flex, Heading, Image, Grid } from '@chakra-ui/core';
 import React from 'react';
 
 import LandingLayout from '../../components/layouts/landingLayout';
-import FormSignUp from '../../components/ui/forms/signUp';
+import FormSignIn from '../../components/ui/forms/signIn';
 
-export default function SignUp() {
+export default function SignIn() {
   return (
     <LandingLayout>
       <Grid
@@ -13,7 +13,7 @@ export default function SignUp() {
         height="100vh"
         alignItems="center"
         templateColumns={{ lg: 'repeat(2, 1fr)' }}
-        backgroundImage="url('/img/bg2.png')"
+        backgroundImage="url('/img/bg3.png')"
         backgroundSize="cover"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
@@ -25,7 +25,7 @@ export default function SignUp() {
           display={{ base: 'none', lg: 'flex' }}
           justifyContent="center"
         >
-          <Image src="/svg/register-image.svg" w="100%" />
+          <Image src="/svg/login-image.svg" w="100%" />
         </Flex>
 
         <Flex
@@ -53,9 +53,9 @@ export default function SignUp() {
             fontSize={{ base: 'lg', lg: 'xl', xl: '28px' }}
             fontWeight="700"
           >
-            Estamos felizes com sua chegada!
+            Estamos felizes com sua volta!
           </Heading>
-          <FormSignUp mt={10} w={{ base: 'xs', lg: 'sm', xl: 'md' }} />
+          <FormSignIn mt={10} w={{ base: 'xs', lg: 'sm', xl: 'md' }} />
         </Flex>
       </Grid>
     </LandingLayout>
