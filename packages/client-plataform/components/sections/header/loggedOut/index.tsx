@@ -31,9 +31,10 @@ const Header = props => {
       as="nav"
       w="100%"
       paddingX={{ xxl: '330px' }}
-      padding="1.5rem"
+      padding={{ xs: '1rem', md: '1.5rem' }}
       backgroundColor="rgba(255,255,255,0.5)"
       color={['white', 'black', 'black.700', 'black.700']}
+      boxShadow="md"
       {...props}
     >
       <Flex
@@ -43,9 +44,9 @@ const Header = props => {
         onClick={toggleMenu}
       >
         {show ? (
-          <Box as={CgClose} size="2em" color="black" />
+          <Box as={CgClose} size="1.7em" color="black" />
         ) : (
-          <Box as={CgMenuLeftAlt} size="2em" color="black" />
+          <Box as={CgMenuLeftAlt} size="1.7em" color="black" />
         )}
       </Flex>
 
@@ -101,7 +102,7 @@ const Header = props => {
         order={[-1, -1, 0, 0]}
         justify={['flex-start', 'flex-start', 'center', 'center']}
       >
-        <Image w="70px" src="/img/logo_transparent.png" />
+        <Image w={{ xs: '45px', md: '70px' }} src="/img/logo_transparent.png" />
       </Flex>
 
       <Flex display={{ base: 'none', md: 'flex' }} justify="flex-end">
