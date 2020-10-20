@@ -31,9 +31,14 @@ const customTheme: DefaultTheme = {
     ...theme.colors,
     black: '#1C1C1C',
     white: '#FCFCFC',
+    gray: {
+      ...theme.colors.gray,
+      '500': '#7A7A7A'
+    },
     blue: {
       ...theme.colors.blue,
       '100': '#F2F7FF',
+      '200': '#CED9EB',
       '300': '#7F9CCE',
       '500': '#0B409C',
       '700': '2151A5'
