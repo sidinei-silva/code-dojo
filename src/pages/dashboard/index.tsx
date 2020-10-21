@@ -1,13 +1,14 @@
-import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
+import { Box, Heading, Grid, Flex, SimpleGrid } from '@chakra-ui/core';
 import React from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
+import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
 
 const Dashboard: React.FC = () => {
   return (
     <DashboardLayout>
-      <Grid gap="3.75rem" marginTop="3.75rem">
+      <Grid gap="3.75rem" marginTop="3.75rem" justifyItems="center">
         <Box>
           <Heading
             fontSize={{ base: '2xl', lg: '28px', xl: '2.6rem' }}
@@ -44,7 +45,7 @@ const Dashboard: React.FC = () => {
         <Flex justify="center">
           <LastModule
             image="/svg/html5.svg"
-            title="Conceitos e Estutrura do HTML"
+            title="Conceitos e Estrutura do HTML"
             description="There’s a quick and easy way to help your kids become happier. is
           simply dummy text of the printing and typesetting industry. Lorem
           Ipsum has been the industry's standard dummy text ever since the
@@ -53,6 +54,39 @@ const Dashboard: React.FC = () => {
             link="/"
           />
         </Flex>
+        <Box textAlign="center" marginTop={{ lg: '1.8rem' }}>
+          <Heading
+            fontSize={{ base: 'lg', lg: 'xl', xl: '1.5rem' }}
+            fontWeight="700"
+          >
+            Módulos
+          </Heading>
+          <Heading
+            marginTop="1em"
+            fontWeight="300"
+            color="gray.500"
+            fontSize={{ base: 'lg', lg: 'xl', xl: '1.1rem' }}
+          >
+            Veja todos os nossos módulos disponíveis
+          </Heading>
+        </Box>
+        <Grid
+          templateColumns={{ md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }}
+          gap="1.8rem"
+          justifyItems="center"
+        >
+          <CardModule
+            image="/svg/html5.svg"
+            title="Conceitos e Estrutura do HTML"
+            description="There’s a quick and easy way to help your kids become happier. is
+          simply dummy text of the printing and typesetting industry. Lorem
+          Ipsum has been the industry's ... "
+            link="/"
+          />
+          <CardModule />
+          <CardModule />
+        </Grid>
+        <Box />
       </Grid>
     </DashboardLayout>
   );
