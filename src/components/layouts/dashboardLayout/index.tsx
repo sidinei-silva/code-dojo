@@ -1,4 +1,4 @@
-import { Flex, Box, BoxProps } from '@chakra-ui/core';
+import { Flex, BoxProps } from '@chakra-ui/core';
 import React from 'react';
 
 import HeaderLoggedIn from '../../sections/header/loggedIn';
@@ -9,7 +9,7 @@ const DashboardLayout: React.FC<BoxProps> = props => {
   return (
     <Flex direction="column" align="center" m="0 auto" {...props}>
       <HeaderLoggedIn />
-      <Box
+      <Flex
         backgroundImage="url('/img/bg3.png')"
         backgroundSize="cover"
         backgroundPosition="center"
@@ -17,9 +17,10 @@ const DashboardLayout: React.FC<BoxProps> = props => {
         paddingTop="110px"
         paddingX={{ base: '25px', xxl: '300px' }}
         w="100%"
+        justify="center"
       >
         {children}
-      </Box>
+      </Flex>
     </Flex>
   );
 };
