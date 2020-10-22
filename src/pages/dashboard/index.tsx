@@ -1,4 +1,5 @@
 import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
+import { randomInt } from 'crypto';
 import React from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
@@ -101,7 +102,9 @@ const Dashboard: React.FC<HomeProps> = props => {
           ))}
 
           {modules.length < 3 &&
-            [...Array(3 - modules.length)].map(key => <CardModule key={key} />)}
+            [...Array(3 - modules.length)].map(() => (
+              <CardModule key={Math.random()} />
+            ))}
         </Grid>
         <Box />
       </Grid>
