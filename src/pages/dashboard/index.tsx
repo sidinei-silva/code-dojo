@@ -1,11 +1,26 @@
-import { Box, Heading, Grid, Flex, SimpleGrid } from '@chakra-ui/core';
+import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
 import React from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
+import { getAllModules } from '../api/modules';
 
-const Dashboard: React.FC = () => {
+interface Module {
+  title: string;
+  slug: string;
+  descriptionCard: string;
+  description: string;
+  image: string;
+}
+
+interface HomeProps {
+  modules: Array<Module>;
+}
+
+const Dashboard: React.FC<HomeProps> = props => {
+  const { modules } = props;
+
   return (
     <DashboardLayout>
       <Grid gap="3.75rem" marginTop="3.75rem" justifyItems="center">
@@ -75,16 +90,18 @@ const Dashboard: React.FC = () => {
           gap="1.8rem"
           justifyItems="center"
         >
-          <CardModule
-            image="/svg/html5.svg"
-            title="Conceitos e Estrutura do HTML"
-            description="There’s a quick and easy way to help your kids become happier. is
-          simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's ... "
-            link="/"
-          />
-          <CardModule />
-          <CardModule />
+          {modules.map(module => (
+            <CardModule
+              key={module.slug}
+              image={module.image}
+              title={module.title}
+              description={module.descriptionCard}
+              link={`modulo/${module.slug}`}
+            />
+          ))}
+
+          {modules.length < 3 &&
+            [...Array(3 - modules.length)].map(key => <CardModule key={key} />)}
         </Grid>
         <Box />
       </Grid>
@@ -93,3 +110,13 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+export async function getStaticProps() {
+  const allModules = await getAllModules();
+
+  return {
+    props: {
+      modules: allModules
+    }
+  };
+}
