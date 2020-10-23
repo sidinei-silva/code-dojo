@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import matter from 'gray-matter';
+import marked from 'marked';
 
 export async function getAllTopicsByModule(moduleSlug) {
   const context = require.context(`../../../_modules`, true, /\.topic.md$/);
@@ -33,12 +34,14 @@ export async function getTopicBySlug(moduleSlug, slug: string) {
   );
 
   const meta = matter(fileContent.default);
+  const content = marked(meta.content);
 
   return {
     title: meta.data.title,
     slug: meta.data.slug,
     description: meta.data.description,
     image: meta.data.image,
-    order: meta.data.order
+    order: meta.data.order,
+    content
   };
 }
