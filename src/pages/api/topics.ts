@@ -19,6 +19,7 @@ export async function getAllTopicsByModule(moduleSlug) {
       title: meta.data.title,
       slug: meta.data.slug,
       description: meta.data.description,
+      image: meta.data.image,
       order: meta.data.order
     });
   }
@@ -37,6 +38,7 @@ export async function getTopicBySlug(moduleSlug, slug: string) {
     title: meta.data.title,
     slug: meta.data.slug,
     description: meta.data.description,
+    image: meta.data.image,
     order: meta.data.order
   };
 }

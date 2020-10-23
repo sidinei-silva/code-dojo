@@ -2,6 +2,7 @@
 title: Anatomia do HTML
 slug: 2-anatomia-do-html
 description: Aprenda sobre a anatomia do HTML e como são formadas suas Tags.
+image: '/svg/html5.svg'
 order: 2
 ---
 
