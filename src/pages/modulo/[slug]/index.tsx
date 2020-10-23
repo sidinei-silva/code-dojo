@@ -11,9 +11,9 @@ import {
 import React from 'react';
 import { CgChevronLeft } from 'react-icons/cg';
 
-import DashboardLayout from '../../components/layouts/dashboardLayout';
-import CardTopic from '../../components/sections/cardTopic';
-import { getModuleBySlug, getAllModules } from '../api/modules';
+import DashboardLayout from '../../../components/layouts/dashboardLayout';
+import CardTopic from '../../../components/sections/cardTopic';
+import { getModuleBySlug, getAllModules } from '../../api/modules';
 
 interface Topic {
   title: string;
