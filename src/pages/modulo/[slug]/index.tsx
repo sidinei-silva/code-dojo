@@ -37,6 +37,7 @@ interface HomeProps {
 
 const Modulo: React.FC<HomeProps> = props => {
   const { module } = props;
+
   return (
     <DashboardLayout>
       <Grid
@@ -113,7 +114,7 @@ const Modulo: React.FC<HomeProps> = props => {
               key={topic.slug}
               title={topic.title}
               description={topic.description}
-              link={`modulo/${topic.slug}`}
+              link={`${module.slug}/topic/${topic.slug}`}
             />
           ))}
         </Grid>
