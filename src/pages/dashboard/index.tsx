@@ -97,7 +97,7 @@ const Dashboard: React.FC<HomeProps> = props => {
               image={module.image}
               title={module.title}
               description={module.descriptionCard}
-              link={`modulo/${module.slug}`}
+              link={`modulo/${module.slug}/boas-vindas`}
             />
           ))}
 
