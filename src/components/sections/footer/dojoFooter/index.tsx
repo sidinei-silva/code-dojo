@@ -37,7 +37,7 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
   return (
     <Grid
       bottom="0"
-      position="absolute"
+      position="fixed"
       alignItems="center"
       templateColumns="repeat(3, 1fr)"
       as="nav"
