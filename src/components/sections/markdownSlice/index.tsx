@@ -1,7 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { Heading, Image, Flex, Text } from '@chakra-ui/core';
 import React from 'react';
+import { CodeBlock, dracula } from 'react-code-blocks';
 import ReactMarkdown from 'react-markdown';
+
 // import { Container } from './styles';
 
 interface MarkdownSliceProps {
@@ -25,6 +27,23 @@ const MarkdownSlice: React.FC<MarkdownSliceProps> = ({ content }) => {
         <Flex justify="center">
           <Image src={image.src} padding="1em" maxWidth="16rem" />
         </Flex>
+      );
+    },
+    code: code => {
+      const refactoreLanguage = language => {
+        if (language === 'html' || language === 'xml') {
+          return 'jsx';
+        }
+        return language;
+      };
+
+      return (
+        <CodeBlock
+          text={code.value}
+          language={refactoreLanguage(code.language)}
+          showLineNumbers={false}
+          theme={dracula}
+        />
       );
     }
   };
