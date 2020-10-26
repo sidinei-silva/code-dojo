@@ -112,7 +112,7 @@ export default WelcomeModulo;
 
 export async function getStaticProps(context: any) {
   return {
-    props: { module: await getModuleBySlug(context.params.slug) }
+    props: { module: await getModuleBySlug(context.params.slugModule) }
   };
 }
 
@@ -121,7 +121,7 @@ export async function getStaticPaths() {
 
   paths = paths.map(module => {
     return {
-      params: { slug: module.slug }
+      params: { slugModule: module.slug }
     };
   });
 

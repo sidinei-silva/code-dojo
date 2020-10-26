@@ -94,10 +94,10 @@ export async function getStaticProps(context: any) {
   return {
     props: {
       topic: await getTopicBySlug(
-        context.params.slug,
+        context.params.slugModule,
         context.params.slugTopic
       ),
-      moduleSlug: context.params.slug
+      moduleSlug: context.params.slugModule
     }
   };
 }
@@ -110,7 +110,7 @@ export async function getStaticPaths() {
       const topics = await getAllTopicsByModule(module.slug);
 
       const pathsTopics = topics.map(topic => {
-        return { params: { slugTopic: topic.slug, slug: module.slug } };
+        return { params: { slugTopic: topic.slug, slugModule: module.slug } };
       });
 
       return pathsTopics;
