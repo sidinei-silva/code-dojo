@@ -17,8 +17,10 @@
     "gray-matter": "^4.0.2",
     "next": "9.5.5",
     "react": "16.13.1",
+    "react-code-blocks": "^0.0.8",
     "react-dom": "16.13.1",
     "react-icons": "^3.11.0",
+    "react-markdown": "^5.0.2",
     "yup": "^0.29.3"
   },
   "devDependencies": {

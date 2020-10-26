@@ -18,6 +18,7 @@ const DashboardLayout: React.FC<BoxProps> = props => {
         paddingX={{ base: '25px', xxl: '300px' }}
         w="100%"
         justify="center"
+        minHeight="100vh"
       >
         {children}
       </Flex>

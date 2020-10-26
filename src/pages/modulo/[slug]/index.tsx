@@ -11,9 +11,9 @@ import {
 import React from 'react';
 import { CgChevronLeft } from 'react-icons/cg';
 
-import DashboardLayout from '../../components/layouts/dashboardLayout';
-import CardTopic from '../../components/sections/cardTopic';
-import { getModuleBySlug, getAllModules } from '../api/modules';
+import DashboardLayout from '../../../components/layouts/dashboardLayout';
+import CardTopic from '../../../components/sections/cardTopic';
+import { getModuleBySlug, getAllModules } from '../../api/modules';
 
 interface Topic {
   title: string;
@@ -37,6 +37,7 @@ interface HomeProps {
 
 const Modulo: React.FC<HomeProps> = props => {
   const { module } = props;
+
   return (
     <DashboardLayout>
       <Grid
@@ -113,7 +114,7 @@ const Modulo: React.FC<HomeProps> = props => {
               key={topic.slug}
               title={topic.title}
               description={topic.description}
-              link={`modulo/${topic.slug}`}
+              link={`${module.slug}/topic/${topic.slug}`}
             />
           ))}
         </Grid>
