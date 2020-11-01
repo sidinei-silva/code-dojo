@@ -22,6 +22,14 @@ import {
 import React from 'react';
 import { CgMenuLeftAlt } from 'react-icons/cg';
 
+interface Task {
+  title: string;
+  topic: string;
+  description: string;
+  order: number;
+  content: string;
+}
+
 interface Topic {
   title: string;
   slug: string;
@@ -29,6 +37,7 @@ interface Topic {
   order: number;
   content: string;
   image: string;
+  tasks: Array<Task>;
 }
 
 interface HeaderDojoProps extends BoxProps {
@@ -118,16 +127,36 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
             </Flex>
 
             <Box marginTop="1.75rem">
-              <List>
+              <List spacing={3}>
                 {listTopics.map(topicList => (
-                  <Link href={`/modulo/${moduleSlug}/dojo/${topicList.slug}`}>
-                    <Flex>
-                      <ListIcon icon="check-circle" color="green.500" />{' '}
-                      <ListItem>
-                        {topicList.order} - {topicList.title}
-                      </ListItem>
-                    </Flex>
-                  </Link>
+                  <ListItem>
+                    <Link href={`/modulo/${moduleSlug}/dojo/${topicList.slug}`}>
+                      <Flex marginBottom={2}>
+                        <ListIcon icon="check-circle" color="green.500" />{' '}
+                        <Text>
+                          {topicList.order} - {topicList.title}
+                        </Text>
+                      </Flex>
+                    </Link>
+                    {topicList.tasks.map(taskList => (
+                      <List marginLeft="1rem">
+                        <ListItem marginTop="0.3rem">
+                          <Link
+                            href={`/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`}
+                          >
+                            <Flex>
+                              <ListIcon
+                                size="0.8rem"
+                                icon="check-circle"
+                                color="green.500"
+                              />
+                              <Text>{taskList.title}</Text>
+                            </Flex>
+                          </Link>
+                        </ListItem>
+                      </List>
+                    ))}
+                  </ListItem>
                 ))}
               </List>
             </Box>
