@@ -2,6 +2,7 @@ import { Box, Heading, Grid, Text } from '@chakra-ui/core';
 import React from 'react';
 
 import DojoLayout from '../../../../../../../components/layouts/dojoLayout';
+import DojoHtml from '../../../../../../../components/sections/dojosTasks/dojoHtml';
 import { getAllModules, getModuleBySlug } from '../../../../../../api/modules';
 import { getTaskBySlug } from '../../../../../../api/tasks';
 import {
@@ -52,16 +53,19 @@ const DojoTask: React.FC<PageProps> = props => {
       listTopics={listTopics}
       topic={topic}
     >
-      <Grid gap="1.75rem" maxWidth="75rem" minWidth={{ xl: '75rem' }}>
-        <Box maxWidth="43.75rem" textAlign="justify">
+      <Grid maxWidth="75rem" templateRows="6rem 1fr" minWidth={{ xl: '75rem' }}>
+        <Box textAlign="justify">
           <Heading
             fontSize={{ base: '2xl', lg: '28px' }}
             fontWeight="700"
-            marginBottom="1.75rem"
+            marginBottom="0.5rem"
           >
             {task.title}
           </Heading>
           <Text>{task.description}</Text>
+        </Box>
+        <Box>
+          <DojoHtml seed={task.content} />
         </Box>
         <Box />
       </Grid>
