@@ -129,7 +129,7 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
             <Box marginTop="1.75rem">
               <List spacing={3}>
                 {listTopics.map(topicList => (
-                  <ListItem>
+                  <ListItem key={topicList.slug}>
                     <Link href={`/modulo/${moduleSlug}/dojo/${topicList.slug}`}>
                       <Flex marginBottom={2}>
                         <ListIcon icon="check-circle" color="green.500" />{' '}
@@ -139,7 +139,10 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                       </Flex>
                     </Link>
                     {topicList.tasks.map(taskList => (
-                      <List marginLeft="1rem">
+                      <List
+                        marginLeft="1rem"
+                        key={topicList.slug + taskList.order}
+                      >
                         <ListItem marginTop="0.3rem">
                           <Link
                             href={`/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`}
