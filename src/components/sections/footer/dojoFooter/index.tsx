@@ -1,8 +1,15 @@
-import { Box, Flex, Grid, Text, Button, BoxProps } from '@chakra-ui/core';
-import Link from 'next/link';
+import { Box, Flex, Grid, Text, Button, BoxProps, Link } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { CgArrowLongRight, CgArrowLongLeft, CgLogOff } from 'react-icons/cg';
+
+interface Task {
+  title: string;
+  topic: string;
+  description: string;
+  order: number;
+  content: string;
+}
 
 interface Topic {
   title: string;
@@ -10,6 +17,7 @@ interface Topic {
   description: string;
   order: number;
   content: string;
+  tasks: Array<Task>;
 }
 
 interface FooterDojoProps extends BoxProps {
@@ -22,17 +30,26 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
   const { listTopics, topic, moduleSlug } = props;
   const router = useRouter();
 
-  const nextTopic = () => {
-    const nextUrl = listTopics[topic.order].slug;
+  const currentPath = router.asPath;
 
-    router.push(`/modulo/${moduleSlug}/dojo/${nextUrl}`);
-  };
+  const pathsTopicsAndTaks = [].concat(
+    ...listTopics.map(topicList => {
+      const pathTopic = `/modulo/${moduleSlug}/dojo/${topicList.slug}`;
+      return [
+        pathTopic,
+        ...topicList.tasks.map(
+          taskList =>
+            `/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`
+        )
+      ];
+    })
+  );
 
-  const previousTopic = () => {
-    const previousUrl = listTopics[topic.order - 2].slug;
+  const nextUrl =
+    pathsTopicsAndTaks[pathsTopicsAndTaks.indexOf(currentPath) + 1];
 
-    router.push(`/modulo/${moduleSlug}/dojo/${previousUrl}`);
-  };
+  const previousUrl =
+    pathsTopicsAndTaks[pathsTopicsAndTaks.indexOf(currentPath) - 1];
 
   return (
     <Grid
@@ -51,23 +68,29 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
     >
       <Flex justify="flex-start" justifySelf="center" align="center" />
       <Flex justify="center" justifySelf="center" align="center">
-        <Button
-          variant="ghost"
-          onClick={previousTopic}
-          isDisabled={topic.order === 1}
-        >
-          <Box as={CgArrowLongLeft} size="1.7em" color="black" />
-        </Button>
+        <Link href={previousUrl}>
+          <Button
+            variant="ghost"
+            isDisabled={pathsTopicsAndTaks.indexOf(currentPath) === 0}
+          >
+            <Box as={CgArrowLongLeft} size="1.7em" color="black" />
+          </Button>
+        </Link>
         <Text marginX="1rem">
-          {listTopics[topic.order - 1].order}/{listTopics.length}
+          {pathsTopicsAndTaks.indexOf(currentPath) + 1}/
+          {pathsTopicsAndTaks.length}
         </Text>
-        <Button
-          variant="ghost"
-          onClick={nextTopic}
-          isDisabled={topic.order === listTopics.length}
-        >
-          <Box as={CgArrowLongRight} size="1.7em" color="black" />
-        </Button>
+        <Link href={nextUrl}>
+          <Button
+            variant="ghost"
+            isDisabled={
+              pathsTopicsAndTaks.indexOf(currentPath) + 1 ===
+              pathsTopicsAndTaks.length
+            }
+          >
+            <Box as={CgArrowLongRight} size="1.7em" color="black" />
+          </Button>
+        </Link>
       </Flex>
       <Flex justify="center" justifySelf="center" align="flex-start">
         <Button variant="ghost">
