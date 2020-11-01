@@ -2,6 +2,8 @@
 /* eslint-disable no-restricted-syntax */
 import matter from 'gray-matter';
 
+import { getAllTasksByTopics } from './tasks';
+
 export async function getAllTopicsByModule(moduleSlug) {
   const context = require.context(`../../../_modules`, true, /\.topic.md$/);
 
@@ -20,7 +22,8 @@ export async function getAllTopicsByModule(moduleSlug) {
       slug: meta.data.slug,
       description: meta.data.description,
       image: meta.data.image,
-      order: meta.data.order
+      order: meta.data.order,
+      tasks: await getAllTasksByTopics(meta.data.slug)
     });
   }
 
@@ -40,6 +43,7 @@ export async function getTopicBySlug(moduleSlug, slug: string) {
     description: meta.data.description,
     image: meta.data.image,
     order: meta.data.order,
-    content: meta.content
+    content: meta.content,
+    tasks: await getAllTasksByTopics(meta.data.slug)
   };
 }
