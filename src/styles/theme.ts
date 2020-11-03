@@ -41,7 +41,7 @@ const customTheme: DefaultTheme = {
       '200': '#CED9EB',
       '300': '#7F9CCE',
       '500': '#0B409C',
-      '700': '2151A5'
+      '700': '#2151A5'
     }
   }
 };

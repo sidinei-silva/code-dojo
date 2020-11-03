@@ -53,7 +53,12 @@ const DojoTask: React.FC<PageProps> = props => {
       listTopics={listTopics}
       topic={topic}
     >
-      <Grid maxWidth="75rem" templateRows="6rem 1fr" minWidth={{ xl: '75rem' }}>
+      <Grid
+        height="100%"
+        maxWidth="75rem"
+        templateRows="6rem 1fr"
+        minWidth={{ xl: '75rem' }}
+      >
         <Box textAlign="justify">
           <Heading
             fontSize={{ base: '2xl', lg: '28px' }}
