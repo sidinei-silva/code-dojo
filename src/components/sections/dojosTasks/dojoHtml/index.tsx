@@ -1,6 +1,14 @@
-import { Box, Button, Flex, Grid, Text } from '@chakra-ui/core';
-import { replace } from 'formik';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridProps,
+  Icon,
+  Text
+} from '@chakra-ui/core';
 import React, { useState } from 'react';
+import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
 
 import CodeEditor from '../../codeEditor';
 import HtmlViewer from '../../viewersContent/htmlViewer';
@@ -12,20 +20,34 @@ interface DojoHtmlProps {
 const DojoHtml: React.FC<DojoHtmlProps> = props => {
   const { seed } = props;
   const [content, setContent] = useState(seed);
+  const [fullScreen, setFullScreen] = useState(false);
+
+  const gridFullScreenProps: GridProps = {
+    position: 'fixed',
+    backgroundColor: 'blue.200',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    padding: '1rem',
+    zIndex: 2
+  };
+
   return (
     <Grid
+      {...(fullScreen && gridFullScreenProps)}
       templateRows={{ xs: 'repeat(2, 1fr)', lg: '1fr' }}
       templateColumns={{ lg: 'repeat(2, 1fr)' }}
       gap="1.75rem"
     >
       <Flex direction="column">
         <CodeEditor
-          height="400"
-          width="550"
+          {...(fullScreen && { height: '100%', width: '100%' })}
           language="html"
           content={content}
           setContent={setContent}
         />
+
         <Flex>
           <Button
             margin="0.5rem"
@@ -57,9 +79,27 @@ const DojoHtml: React.FC<DojoHtmlProps> = props => {
           >
             Resetar
           </Button>
+          <Button
+            margin="0.5rem"
+            size="sm"
+            rounded="md"
+            bg="blue.700"
+            color="white"
+            _hover={{
+              color: 'white',
+              borderColor: 'blue.300',
+              boxShadow: 'outline'
+            }}
+            onClick={() => setFullScreen(!fullScreen)}
+          >
+            <Box
+              size="1.5rem"
+              as={fullScreen ? VscScreenNormal : VscScreenFull}
+            />
+          </Button>
         </Flex>
       </Flex>
-      <Box shadow="xl" backgroundColor="white">
+      <Box shadow="xl" backgroundColor="white" width="100%">
         <Flex
           width="100%"
           height="3rem"
