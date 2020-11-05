@@ -17,6 +17,7 @@ export async function getAllTasksByTopics(topicSlug) {
       description: meta.data.description,
       order: meta.data.order,
       topic: meta.data.topic,
+      language: meta.data.language,
       content: meta.content
     });
   }
@@ -42,6 +43,7 @@ export async function getTaskBySlug(topicSlug, slug: string) {
     description: meta.data.description,
     order: meta.data.order,
     topic: meta.data.topic,
+    language: meta.data.language,
     content: meta.content
   };
 }

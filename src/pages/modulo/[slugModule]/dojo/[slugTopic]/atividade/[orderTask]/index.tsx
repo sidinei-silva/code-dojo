@@ -15,6 +15,7 @@ interface Task {
   topic: string;
   description: string;
   order: number;
+  language: string;
   content: string;
 }
 
