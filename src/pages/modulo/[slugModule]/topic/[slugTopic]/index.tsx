@@ -118,7 +118,7 @@ export async function getStaticPaths() {
   );
 
   return {
-    paths: paths[0],
+    paths: paths.flat(Infinity),
     fallback: false
   };
 }
