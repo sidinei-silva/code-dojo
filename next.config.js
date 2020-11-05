@@ -20,7 +20,7 @@ module.exports = withCSS({
     config.plugins.push(
       new MonacoWebpackPlugin({
         // Add languages as needed...
-        languages: ['html'],
+        languages: ['html', 'javascript'],
         filename: 'static/[name].worker.js'
       })
     );
