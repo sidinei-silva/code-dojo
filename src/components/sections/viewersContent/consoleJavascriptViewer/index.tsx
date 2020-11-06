@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/core';
 import React from 'react';
 
 const getElementIFrame = (): HTMLElement | null => {
@@ -18,25 +19,57 @@ export const clearConsole = () => {
 
 export const addConsole = () => {
   const iframeElement: HTMLElement = getElementIFrame();
+
   window.console = {
     ...window.console,
     log(str) {
       if (!str.includes('[Fast Refresh]')) {
+        const image = document.createElement('img');
+        image.src = '/svg/arrow-point-to-right.svg';
+        image.style.width = '10px';
+        image.style.marginRight = '1rem';
         const node = document.createElement('div');
+        node.style.borderBottom = '1px solid #ccc';
+        node.style.paddingBottom = '0.5rem';
+        node.style.paddingTop = '0.5rem';
+        node.style.display = 'flex';
+        node.appendChild(image);
         node.appendChild(document.createTextNode(str));
-        document.getElementById('console').appendChild(node);
+        iframeElement.appendChild(node);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const firstElement: any = iframeElement.firstElementChild;
+        firstElement.style.borderTop = '1px solid #ccc';
       }
     },
     error(str) {
+      const image = document.createElement('img');
+      image.src = '/svg/arrow-point-to-right.svg';
+      image.style.width = '10px';
+      image.style.marginRight = '1rem';
       const node = document.createElement('div');
+      node.style.color = 'red';
+      node.style.borderBottom = '1px solid #ccc';
+      node.style.paddingBottom = '0.5rem';
+      node.style.paddingTop = '0.5rem';
+      node.style.display = 'flex';
+      node.appendChild(image);
       node.appendChild(document.createTextNode(str));
       iframeElement.appendChild(node);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const firstElement: any = iframeElement.firstElementChild;
+      firstElement.style.borderTop = '1px solid #ccc';
     }
   };
 };
 
 const ConsoleJavascriptViewer: React.FC = () => {
-  return <div id="console" />;
+  return (
+    <Box
+      id="console"
+      padding="1.75rem"
+      style={{ fontFamily: 'consolas', fontSize: '14px' }}
+    />
+  );
 };
 
 export default ConsoleJavascriptViewer;
