@@ -23,24 +23,32 @@ export const addConsole = () => {
   window.console = {
     ...window.console,
     log(str) {
-      if (!str.includes('[Fast Refresh]')) {
-        const image = document.createElement('img');
-        image.src = '/svg/arrow-point-to-right.svg';
-        image.style.width = '10px';
-        image.style.marginRight = '1rem';
-        const node = document.createElement('div');
-        node.style.borderBottom = '1px solid #ccc';
-        node.style.paddingBottom = '0.5rem';
-        node.style.paddingTop = '0.5rem';
-        node.style.display = 'flex';
-        node.appendChild(image);
-        node.appendChild(document.createTextNode(str));
-        iframeElement.appendChild(node);
-        iframeElement.scrollTop = iframeElement.scrollHeight;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const firstElement: any = iframeElement.firstElementChild;
-        firstElement.style.borderTop = '1px solid #ccc';
+      if (
+        typeof str === 'string' &&
+        str.toString().includes('[Fast Refresh]')
+      ) {
+        return;
       }
+      if (typeof str === 'object') {
+        // eslint-disable-next-line no-param-reassign
+        str = JSON.stringify(str);
+      }
+      const image = document.createElement('img');
+      image.src = '/svg/arrow-point-to-right.svg';
+      image.style.width = '10px';
+      image.style.marginRight = '1rem';
+      const node = document.createElement('div');
+      node.style.borderBottom = '1px solid #ccc';
+      node.style.paddingBottom = '0.5rem';
+      node.style.paddingTop = '0.5rem';
+      node.style.display = 'flex';
+      node.appendChild(image);
+      node.appendChild(document.createTextNode(str));
+      iframeElement.appendChild(node);
+      iframeElement.scrollTop = iframeElement.scrollHeight;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const firstElement: any = iframeElement.firstElementChild;
+      firstElement.style.borderTop = '1px solid #ccc';
     },
     error(str) {
       const image = document.createElement('img');
