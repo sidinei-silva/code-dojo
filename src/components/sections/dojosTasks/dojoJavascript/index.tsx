@@ -19,7 +19,6 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
   const [fullScreen, setFullScreen] = useState(false);
 
   const runCode = async () => {
-    clearConsole();
     addConsole();
     await executeCode(content);
   };
