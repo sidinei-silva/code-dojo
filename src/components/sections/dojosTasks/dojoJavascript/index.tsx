@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Grid, GridProps, Text } from '@chakra-ui/core';
-import React, { useState } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
 
 import executeCode from '../../../../lib/runners/javacsript/execute';
@@ -24,6 +24,13 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
     await executeCode(content);
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.key === 's') {
+      e.preventDefault();
+      runCode();
+    }
+  };
+
   const gridFullScreenProps: GridProps = {
     position: 'fixed',
     backgroundColor: 'blue.200',
@@ -43,12 +50,14 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
       gap="1.75rem"
     >
       <Flex direction="column">
-        <CodeEditor
-          {...(fullScreen && { height: '100%', width: '100%' })}
-          language="javascript"
-          content={content}
-          setContent={setContent}
-        />
+        <Box onKeyDown={handleKeyDown} height="100%" width="100%">
+          <CodeEditor
+            {...(fullScreen && { height: '100%', width: '100%' })}
+            language="javascript"
+            content={content}
+            setContent={setContent}
+          />
+        </Box>
 
         <Flex>
           <Button
