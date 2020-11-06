@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/core';
+import { Box, BoxProps } from '@chakra-ui/core';
 import React from 'react';
 
 const getElementIFrame = (): HTMLElement | null => {
@@ -62,12 +62,14 @@ export const addConsole = () => {
   };
 };
 
-const ConsoleJavascriptViewer: React.FC = () => {
+const ConsoleJavascriptViewer: React.FC<BoxProps> = props => {
   return (
     <Box
+      {...props}
       id="console"
       padding="1.75rem"
       style={{ fontFamily: 'consolas', fontSize: '14px' }}
+      overflowY="auto"
     />
   );
 };
