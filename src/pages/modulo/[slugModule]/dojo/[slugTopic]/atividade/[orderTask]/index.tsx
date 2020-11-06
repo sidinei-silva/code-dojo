@@ -3,6 +3,7 @@ import React from 'react';
 
 import DojoLayout from '../../../../../../../components/layouts/dojoLayout';
 import DojoHtml from '../../../../../../../components/sections/dojosTasks/dojoHtml';
+import DojoJavascript from '../../../../../../../components/sections/dojosTasks/dojoJavascript';
 import { getAllModules, getModuleBySlug } from '../../../../../../api/modules';
 import { getTaskBySlug } from '../../../../../../api/tasks';
 import {
@@ -71,7 +72,10 @@ const DojoTask: React.FC<PageProps> = props => {
           <Text>{task.description}</Text>
         </Box>
         <Box>
-          <DojoHtml seed={task.content} />
+          {task.language === 'html' && <DojoHtml seed={task.content} />}
+          {task.language === 'javascript' && (
+            <DojoJavascript seed={task.content} />
+          )}
         </Box>
         <Box />
       </Grid>
