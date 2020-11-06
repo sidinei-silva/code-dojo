@@ -72,6 +72,7 @@ const DojoTask: React.FC<PageProps> = props => {
           <Text>{task.description}</Text>
         </Box>
         <Box>
+          {!task.language && <div>Em breve</div>}
           {task.language === 'html' && <DojoHtml seed={task.content} />}
           {task.language === 'javascript' && (
             <DojoJavascript seed={task.content} />
