@@ -36,6 +36,7 @@ export const addConsole = () => {
         node.appendChild(image);
         node.appendChild(document.createTextNode(str));
         iframeElement.appendChild(node);
+        iframeElement.scrollTop = iframeElement.scrollHeight;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const firstElement: any = iframeElement.firstElementChild;
         firstElement.style.borderTop = '1px solid #ccc';
