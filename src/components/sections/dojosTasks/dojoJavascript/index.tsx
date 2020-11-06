@@ -171,7 +171,7 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
             </Text>
           </Flex>
         </Flex>
-        <ConsoleJavascriptViewer />
+        <ConsoleJavascriptViewer maxHeight={fullScreen ? '90vh' : '25rem'} />
       </Box>
     </Grid>
   );
