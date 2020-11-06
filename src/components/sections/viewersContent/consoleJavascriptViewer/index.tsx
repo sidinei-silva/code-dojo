@@ -21,9 +21,11 @@ export const addConsole = () => {
   window.console = {
     ...window.console,
     log(str) {
-      const node = document.createElement('div');
-      node.appendChild(document.createTextNode(str));
-      document.getElementById('console').appendChild(node);
+      if (!str.includes('[Fast Refresh]')) {
+        const node = document.createElement('div');
+        node.appendChild(document.createTextNode(str));
+        document.getElementById('console').appendChild(node);
+      }
     },
     error(str) {
       const node = document.createElement('div');
