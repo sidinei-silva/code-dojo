@@ -2,6 +2,10 @@ import fs from 'fs';
 import { NextApiResponse, NextApiRequest } from 'next';
 import { resolve } from 'path';
 
+export function getFileName() {
+  return 'c2cd4f3a-229f-11eb-adc1-0242ac120002';
+}
+
 export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   if (req.method !== 'POST') {
     res.statusCode = 404;
