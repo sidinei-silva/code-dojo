@@ -14,6 +14,8 @@ export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 
   const { code } = req.body;
 
+  const dataCode = `export default () => {${JSON.parse(code)}}`;
+
   const destination = resolve(
     __dirname,
     '..',
@@ -25,7 +27,7 @@ export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   );
   const fileName = 'c2cd4f3a-229f-11eb-adc1-0242ac120002';
 
-  fs.writeFile(`./${destination}/${fileName}.js`, JSON.parse(code), err => {
+  fs.writeFile(`./${destination}/${fileName}.js`, dataCode, err => {
     if (err) console.info(err);
   });
 
