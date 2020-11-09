@@ -26,7 +26,8 @@
     "react",
     "@typescript-eslint",
     "eslint-plugin-import-helpers",
-    "prettier"
+    "prettier",
+    "jest"
   ],
   "rules": {
     "react/jsx-props-no-spreading": "off",
