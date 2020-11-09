@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Grid, GridProps, Text } from '@chakra-ui/core';
+import axios from 'axios';
 import React, { KeyboardEvent, useState } from 'react';
 import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
 
@@ -18,9 +19,21 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
 
+  const createFile = async contentCode => {
+    const data = await axios
+      .post('/api/createFiles/createJavascript', {
+        code: JSON.stringify(contentCode)
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => console.info(err));
+  };
+
   const runCode = async () => {
     addConsole();
     await executeCode(content);
+    const dataCreateFile = await createFile(content);
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
