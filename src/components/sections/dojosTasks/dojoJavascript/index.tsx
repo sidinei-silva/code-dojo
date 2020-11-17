@@ -1,4 +1,21 @@
-import { Box, Button, Flex, Grid, GridProps, Text } from '@chakra-ui/core';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridProps,
+  Text,
+  CircularProgress,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+} from '@chakra-ui/core';
+import axios from 'axios';
 import React, { KeyboardEvent, useState } from 'react';
 import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
 
@@ -9,18 +26,46 @@ import ConsoleJavascriptViewer, {
   clearConsole
 } from '../../viewersContent/consoleJavascriptViewer';
 
-interface DojoHtmlProps {
+interface DojoJavascriptProps {
   seed: string;
+  testName: string;
 }
 
-const DojoJavascript: React.FC<DojoHtmlProps> = props => {
-  const { seed } = props;
+const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
+  const { seed, testName } = props;
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [dataCheckTask, setDataCheckTask] = useState({ message: '' });
+
+  const createFile = async contentCode => {
+    const data = await axios
+      .post('/api/createFiles/createJavascript', {
+        code: JSON.stringify(contentCode)
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => console.error(err));
+  };
+
+  const checkTask = async () => {
+    const data = await axios
+      .post('/api/checkTask/javascriptTask', { testName })
+      .then(response => response.data)
+      .catch(err => console.error(err));
+    setDataCheckTask(data);
+  };
 
   const runCode = async () => {
+    setLoading(true);
+    await createFile(content);
+    await checkTask();
     addConsole();
     await executeCode(content);
+    setLoading(false);
+    onOpen();
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -72,6 +117,7 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
               boxShadow: 'outline'
             }}
             onClick={runCode}
+            isLoading={loading}
           >
             Corrigir
           </Button>
@@ -87,6 +133,7 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
               boxShadow: 'outline'
             }}
             onClick={() => setContent(seed)}
+            isLoading={loading}
           >
             Resetar
           </Button>
@@ -102,6 +149,7 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
               boxShadow: 'outline'
             }}
             onClick={() => clearConsole()}
+            isLoading={loading}
           >
             Limpar console
           </Button>
@@ -170,8 +218,49 @@ const DojoJavascript: React.FC<DojoHtmlProps> = props => {
             </Text>
           </Flex>
         </Flex>
-        <ConsoleJavascriptViewer maxHeight={fullScreen ? '90vh' : '25rem'} />
+        {loading && (
+          <Flex
+            align="center"
+            height={fullScreen ? '90vh' : '25rem'}
+            justify="center"
+          >
+            <CircularProgress isIndeterminate color="blue" />
+          </Flex>
+        )}
+        <ConsoleJavascriptViewer
+          display={loading ? 'none' : 'block'}
+          maxHeight={fullScreen ? '90vh' : '25rem'}
+        />
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Resultado</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>{dataCheckTask.message}</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              margin="0.5rem"
+              marginLeft="0"
+              size="sm"
+              rounded="md"
+              color="white"
+              bg="blue.500"
+              _hover={{
+                color: 'white',
+                borderColor: 'blue.300',
+                boxShadow: 'outline'
+              }}
+              onClick={onClose}
+            >
+              Fechar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Grid>
   );
 };

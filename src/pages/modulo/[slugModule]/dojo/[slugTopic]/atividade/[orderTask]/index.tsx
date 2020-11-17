@@ -17,6 +17,7 @@ interface Task {
   description: string;
   order: number;
   language: string;
+  testName: string;
   content: string;
 }
 
@@ -75,7 +76,7 @@ const DojoTask: React.FC<PageProps> = props => {
           {!task.language && <div>Em breve</div>}
           {task.language === 'html' && <DojoHtml seed={task.content} />}
           {task.language === 'javascript' && (
-            <DojoJavascript seed={task.content} />
+            <DojoJavascript testName={task.testName} seed={task.content} />
           )}
         </Box>
         <Box />

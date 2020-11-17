@@ -18,6 +18,7 @@ export async function getAllTasksByTopics(topicSlug) {
       order: meta.data.order,
       topic: meta.data.topic,
       language: meta.data.language,
+      testName: meta.data.testName,
       content: meta.content
     });
   }
@@ -44,6 +45,7 @@ export async function getTaskBySlug(topicSlug, slug: string) {
     order: meta.data.order,
     topic: meta.data.topic,
     language: meta.data.language,
+    testName: meta.data.testName,
     content: meta.content
   };
 }

@@ -49,24 +49,6 @@ export const addConsole = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const firstElement: any = iframeElement.firstElementChild;
       firstElement.style.borderTop = '1px solid #ccc';
-    },
-    error(str) {
-      const image = document.createElement('img');
-      image.src = '/svg/arrow-point-to-right.svg';
-      image.style.width = '10px';
-      image.style.marginRight = '1rem';
-      const node = document.createElement('div');
-      node.style.color = 'red';
-      node.style.borderBottom = '1px solid #ccc';
-      node.style.paddingBottom = '0.5rem';
-      node.style.paddingTop = '0.5rem';
-      node.style.display = 'flex';
-      node.appendChild(image);
-      node.appendChild(document.createTextNode(str));
-      iframeElement.appendChild(node);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const firstElement: any = iframeElement.firstElementChild;
-      firstElement.style.borderTop = '1px solid #ccc';
     }
   };
 };
