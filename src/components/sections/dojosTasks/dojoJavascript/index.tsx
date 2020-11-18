@@ -43,17 +43,6 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
     line: null
   });
 
-  const createFile = async contentCode => {
-    const data = await axios
-      .post('/api/createFiles/createJavascript', {
-        code: JSON.stringify(contentCode)
-      })
-      .then(response => {
-        return response.data;
-      })
-      .catch(err => console.error(err));
-  };
-
   const checkTask = async contentCode => {
     const data = await axios
       .post('/api/checkTask/javascriptTask', {
@@ -68,7 +57,6 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
 
   const runCode = async () => {
     setLoading(true);
-    await createFile(content);
     await checkTask(content);
     addConsole();
     await executeCode(content);
