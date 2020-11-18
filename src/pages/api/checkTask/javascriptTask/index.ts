@@ -15,11 +15,9 @@ export default async (
     return;
   }
 
-  const { code, ruleTask } = req.body;
+  const { code, ruleTask, module } = req.body;
 
-  const linter = await getLinter(
-    'introducao-a-logica-de-programacao-com-javascript'
-  );
+  const linter = await getLinter(module);
 
   const result = linter.verify(JSON.parse(code), {
     useEslintrc: false,

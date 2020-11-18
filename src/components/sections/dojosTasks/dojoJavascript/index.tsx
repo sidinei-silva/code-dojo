@@ -29,10 +29,11 @@ import ConsoleJavascriptViewer, {
 interface DojoJavascriptProps {
   seed: string;
   ruleTask: string;
+  moduleSlug: string;
 }
 
 const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
-  const { seed, ruleTask } = props;
+  const { seed, ruleTask, moduleSlug } = props;
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,8 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
     const data = await axios
       .post('/api/checkTask/javascriptTask', {
         code: JSON.stringify(contentCode),
-        ruleTask
+        ruleTask,
+        module: moduleSlug
       })
       .then(response => response.data)
       .catch(err => console.error(err));
