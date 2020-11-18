@@ -3,7 +3,7 @@ import jwtDecode, { JwtPayload } from 'jwt-decode';
 // eslint-disable-next-line import/no-cycle
 import api from './api';
 
-const TOKEN_KEY = '@estudado_auth';
+const TOKEN_KEY = '@code-dojo';
 
 export const getToken = () => {
   return localStorage.getItem(TOKEN_KEY);
