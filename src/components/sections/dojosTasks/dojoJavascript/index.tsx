@@ -28,31 +28,28 @@ import ConsoleJavascriptViewer, {
 
 interface DojoJavascriptProps {
   seed: string;
-  testName: string;
+  ruleTask: string;
+  moduleSlug: string;
 }
 
 const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
-  const { seed, testName } = props;
+  const { seed, ruleTask, moduleSlug } = props;
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [dataCheckTask, setDataCheckTask] = useState({ message: '' });
+  const [dataCheckTask, setDataCheckTask] = useState({
+    message: '',
+    line: null
+  });
 
-  const createFile = async contentCode => {
+  const checkTask = async contentCode => {
     const data = await axios
-      .post('/api/createFiles/createJavascript', {
-        code: JSON.stringify(contentCode)
+      .post('/api/checkTask/javascriptTask', {
+        code: JSON.stringify(contentCode),
+        ruleTask,
+        module: moduleSlug
       })
-      .then(response => {
-        return response.data;
-      })
-      .catch(err => console.error(err));
-  };
-
-  const checkTask = async () => {
-    const data = await axios
-      .post('/api/checkTask/javascriptTask', { testName })
       .then(response => response.data)
       .catch(err => console.error(err));
     setDataCheckTask(data);
@@ -60,8 +57,7 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
 
   const runCode = async () => {
     setLoading(true);
-    await createFile(content);
-    await checkTask();
+    await checkTask(content);
     addConsole();
     await executeCode(content);
     setLoading(false);
@@ -239,6 +235,14 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
           <ModalCloseButton />
           <ModalBody>
             <Text>{dataCheckTask.message}</Text>
+            {dataCheckTask.line && (
+              <Text>
+                Linha:{' '}
+                <Text as="span" color="red.500">
+                  {dataCheckTask.line}
+                </Text>
+              </Text>
+            )}
           </ModalBody>
 
           <ModalFooter>
