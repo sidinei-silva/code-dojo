@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-var-requires */
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { runCLI } from 'jest';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+import getLinter from '../../../../../_linters';
 
 export default async (
   req: NextApiRequest,
@@ -17,26 +15,34 @@ export default async (
     return;
   }
 
-  const { testName } = req.body;
+  const { code } = req.body;
 
-  const { results } = await runCLI(
-    // @ts-ignore-line
-    { bail: false, testNamePattern: `${testName}` },
-    ['_modules']
+  const ruleTask = 'var-length';
+
+  const linter = await getLinter(
+    'introducao-a-logica-de-programacao-com-javascript'
   );
 
-  if (
-    results.success &&
-    results.numPassedTestSuites === results.numTotalTestSuites
-  ) {
+  const result = linter.verify(JSON.parse(code), {
+    useEslintrc: false,
+    env: {
+      es6: true,
+      node: true,
+      es2021: true
+    },
+    rules: { 'var-length': 'error' }
+  });
+
+  if (result.length > 0) {
     res.json({
-      result: true,
-      message: 'Parabéns, Justu conquistado com sucesso'
+      result: false,
+      message: result[0].message,
+      line: result[0].line
     });
   } else {
     res.json({
-      result: false,
-      message: 'Não foi desta vez, mas não desanime a próxima será sucesso'
+      result: true,
+      message: 'Parabéns, Justu conquistado com sucesso'
     });
   }
 };
