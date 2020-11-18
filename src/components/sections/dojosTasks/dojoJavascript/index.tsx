@@ -56,7 +56,8 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
   const checkTask = async contentCode => {
     const data = await axios
       .post('/api/checkTask/javascriptTask', {
-        code: JSON.stringify(contentCode)
+        code: JSON.stringify(contentCode),
+        ruleTask
       })
       .then(response => response.data)
       .catch(err => console.error(err));

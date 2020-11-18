@@ -15,9 +15,7 @@ export default async (
     return;
   }
 
-  const { code } = req.body;
-
-  const ruleTask = 'var-length';
+  const { code, ruleTask } = req.body;
 
   const linter = await getLinter(
     'introducao-a-logica-de-programacao-com-javascript'
@@ -30,7 +28,7 @@ export default async (
       node: true,
       es2021: true
     },
-    rules: { 'var-length': 'error' }
+    rules: { [`${ruleTask}`]: 'error' }
   });
 
   if (result.length > 0) {
