@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import { loggedIn } from '../../services/auth';
 
-const withAuth = Component => {
+const withAuth = (Component): any => {
   return () => {
     const [isLoad, setIsLoad] = useState(true);
 
