@@ -1,10 +1,10 @@
 import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
-import { randomInt } from 'crypto';
 import React from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
+import withAuth from '../../components/utils/withAuth';
 import { getAllModules } from '../api/modules';
 
 interface Module {
@@ -112,8 +112,6 @@ const Dashboard: React.FC<HomeProps> = props => {
   );
 };
 
-export default Dashboard;
-
 export async function getStaticProps() {
   const allModules = await getAllModules();
 
@@ -123,3 +121,5 @@ export async function getStaticProps() {
     }
   };
 }
+
+export default withAuth(Dashboard);
