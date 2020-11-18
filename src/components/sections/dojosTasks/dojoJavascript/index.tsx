@@ -28,11 +28,11 @@ import ConsoleJavascriptViewer, {
 
 interface DojoJavascriptProps {
   seed: string;
-  testName: string;
+  ruleTask: string;
 }
 
 const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
-  const { seed, testName } = props;
+  const { seed, ruleTask } = props;
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
