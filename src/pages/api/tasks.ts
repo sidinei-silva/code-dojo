@@ -13,13 +13,13 @@ export async function getAllTasksByTopics(topicSlug) {
     const content = await import(`../../../_modules/${task}`);
     const meta = matter(content.default);
     tasks.push({
-      title: meta.data.title,
-      description: meta.data.description,
-      order: meta.data.order,
-      topic: meta.data.topic,
-      language: meta.data.language,
-      ruleTask: meta.data.ruleTask,
-      content: meta.content
+      title: meta.data.title || '',
+      description: meta.data.description || '',
+      order: meta.data.order || '',
+      topic: meta.data.topic || '',
+      language: meta.data.language || '',
+      ruleTask: meta.data.ruleTask || '',
+      content: meta.content || ''
     });
   }
 
@@ -40,12 +40,12 @@ export async function getTaskBySlug(topicSlug, slug: string) {
   const meta = matter(fileContent.default);
 
   return {
-    title: meta.data.title,
-    description: meta.data.description,
-    order: meta.data.order,
-    topic: meta.data.topic,
-    language: meta.data.language,
-    ruleTask: meta.data.ruleTask,
-    content: meta.content
+    title: meta.data.title || '',
+    description: meta.data.description || '',
+    order: meta.data.order || '',
+    topic: meta.data.topic || '',
+    language: meta.data.language || '',
+    ruleTask: meta.data.ruleTask || '',
+    content: meta.content || ''
   };
 }

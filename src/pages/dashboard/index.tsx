@@ -1,5 +1,4 @@
 import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
-import { randomInt } from 'crypto';
 import React from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
@@ -112,8 +111,6 @@ const Dashboard: React.FC<HomeProps> = props => {
   );
 };
 
-export default Dashboard;
-
 export async function getStaticProps() {
   const allModules = await getAllModules();
 
@@ -123,3 +120,5 @@ export async function getStaticProps() {
     }
   };
 }
+
+export default Dashboard;
