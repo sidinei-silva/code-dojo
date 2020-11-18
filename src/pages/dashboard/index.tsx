@@ -4,7 +4,6 @@ import React from 'react';
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
-import withAuth from '../../components/utils/withAuth';
 import { getAllModules } from '../api/modules';
 
 interface Module {
@@ -122,4 +121,4 @@ export async function getStaticProps() {
   };
 }
 
-export default withAuth(Dashboard);
+export default Dashboard;
