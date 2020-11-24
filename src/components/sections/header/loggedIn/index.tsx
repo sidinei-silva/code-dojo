@@ -19,12 +19,15 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  Divider
+  Divider,
+  Button
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React from 'react';
 import { CgMenuLeftAlt, CgChevronDown } from 'react-icons/cg';
 import { ImExit } from 'react-icons/im';
+
+import useAuth from '../../../../contexts/auth';
 
 const MenuItems = props => {
   const { children, isLast, to = '/', ...rest } = props;
@@ -45,7 +48,7 @@ const MenuItems = props => {
 const HeaderLoggedIn = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-
+  const { logout } = useAuth();
   return (
     <Grid
       position="absolute"
@@ -102,6 +105,10 @@ const HeaderLoggedIn = props => {
             <MenuGroup title="Ajuda">
               <MenuItem>Docs</MenuItem>
               <MenuItem>FAQ</MenuItem>
+            </MenuGroup>
+            <MenuDivider />
+            <MenuGroup>
+              <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuGroup>
           </MenuList>
         </Menu>
