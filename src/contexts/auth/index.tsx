@@ -11,12 +11,20 @@ const checkToken = async token => {
   return null;
 };
 
+type LoginType = (email: string, password: string) => Promise<void>;
+type LogoutType = () => void;
+
+interface UserProps {
+  email: string;
+  name: string;
+}
+
 interface ContextProps {
   isAuthenticated: boolean;
   isLoading: boolean;
-  user: any;
-  login: any;
-  logout: any;
+  user: UserProps;
+  login: LoginType;
+  logout: LogoutType;
 }
 
 const AuthContext = createContext<Partial<ContextProps>>({});
@@ -42,15 +50,19 @@ export const AuthProvider = props => {
     loadUserFromLocalStorage();
   }, []);
 
-  const login = async (email, password) => {
-    const { data: token } = await ApiService.post('users/login', {
+  const login: LoginType = async (email, password) => {
+    const { token } = await ApiService.post('users/login', {
       email,
       password
+    }).then(response => {
+      return response.data.data;
     });
+
     if (token) {
       setToken(token);
       const checkUser = await checkToken(token);
       if (checkUser) setUser(checkUser);
+      router.push('/dashboard');
     }
   };
 
@@ -76,4 +88,6 @@ export const AuthProvider = props => {
   );
 };
 
-export default () => useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
+
+export default useAuth;
