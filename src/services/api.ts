@@ -4,7 +4,7 @@ import { getToken, removeToken } from './storage/token';
 
 const urls = {
   test: `http://localhost:3334/api`,
-  development: 'http://localhost:3333/api',
+  development: 'http://localhost:3000/api',
   production: 'https://your-production-url.com/api'
 };
 const ApiService = Axios.create({
