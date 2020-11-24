@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { NextApiHandler, NextApiResponse, NextApiRequest } from 'next';
 
-interface requestCustom extends NextApiRequest {
+export interface requestCustom extends NextApiRequest {
   userId?: number;
   userEmail?: string;
 }
@@ -20,7 +20,7 @@ export default (nextHandler: NextApiHandler) => async (
 
   try {
     const decoded: any = jwt.verify(token, process.env.API_APP_SECRET);
-    req.userId = decoded.id;
+    req.userId = decoded._id;
     req.userEmail = decoded.email;
   } catch (err) {
     return res.status(401).json({ status: 'error', message: err.message });

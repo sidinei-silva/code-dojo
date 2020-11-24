@@ -27,6 +27,8 @@ interface Task {
   topic: string;
   description: string;
   order: number;
+  language: string;
+  ruleTask: string;
   content: string;
 }
 

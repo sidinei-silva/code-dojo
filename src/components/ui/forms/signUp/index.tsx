@@ -6,25 +6,48 @@ import {
   Grid,
   Flex,
   Box,
-  BoxProps
+  BoxProps,
+  useToast
 } from '@chakra-ui/core';
 import { Formik, Field } from 'formik';
 import React from 'react';
 
+import useAuth from '../../../../contexts/auth';
+import Api from '../../../../services/api';
 import Input from '../../input';
 import userSchema from './userSchema';
 
 const FormSignUp: React.FC<BoxProps> = boxProps => {
+  const toast = useToast();
+  const { login } = useAuth();
   return (
     <Box {...boxProps}>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         validationSchema={userSchema}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
+        onSubmit={async (values, actions) => {
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          await Api.post('users/register', {
+            ...values
+          })
+            .then(async response => {
+              if (
+                response.status === 200 &&
+                response.data.data.email === values.email
+              ) {
+                await login(values.email, values.password);
+              }
+            })
+            .catch(err => {
+              toast({
+                title: 'Ops...',
+                description: err.response.data.message || '',
+                status: 'error',
+                duration: 9000,
+                isClosable: true
+              });
+            });
         }}
       >
         {props => (
