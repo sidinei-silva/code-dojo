@@ -5,13 +5,24 @@ import FooterDojo from '../../sections/footer/dojoFooter';
 import HeaderDojo from '../../sections/header/dojoHeader';
 import ProtectRoute from '../../utils/ProtectRoute';
 
+interface Task {
+  title: string;
+  topic: string;
+  description: string;
+  order: number;
+  language: string;
+  ruleTask: string;
+  content: string;
+}
+
 interface Topic {
   title: string;
   slug: string;
   description: string;
+  image: string;
   order: number;
   content: string;
-  image: string;
+  tasks: Array<Task>;
 }
 
 interface DojoLayoutProps extends BoxProps {
