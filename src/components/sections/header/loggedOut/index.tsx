@@ -79,7 +79,7 @@ const Header = props => {
                 boxShadow: 'outline'
               }}
             >
-              Entrar
+              <Link href="/entrar">Entrar</Link>
             </Button>
             <Button
               size="sm"
@@ -91,7 +91,7 @@ const Header = props => {
                 boxShadow: 'outline'
               }}
             >
-              Cadastrar
+              <Link href="/cadastrar">Cadastrar</Link>
             </Button>
           </Flex>
         </MenuItems>
@@ -116,7 +116,7 @@ const Header = props => {
             boxShadow: 'outline'
           }}
         >
-          Cadastrar
+          <Link href="/cadastrar">Cadastrar</Link>
         </Button>
         <Button
           size="sm"
@@ -129,7 +129,7 @@ const Header = props => {
             boxShadow: 'outline'
           }}
         >
-          Entrar
+          <Link href="/entrar">Entrar</Link>
         </Button>
       </Flex>
     </Grid>
