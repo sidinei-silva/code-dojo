@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Linter } from 'eslint';
 
-import { getVariableByName } from '../utils';
+import { getVariableByName } from '../../_linters/utils';
 
 const linter = new Linter();
 
