@@ -20,7 +20,43 @@ const MarkdownSlice: React.FC<MarkdownSliceProps> = ({ content }) => {
       );
     },
     heading: heading => {
-      return <Heading>{heading.children}</Heading>;
+      let headingSize;
+      let headingVariant;
+      switch (heading.level) {
+        case 1:
+          headingSize = '2xl';
+          headingVariant = 'h1';
+          break;
+        case 2:
+          headingSize = 'xl';
+          headingVariant = 'h2';
+          break;
+        case 3:
+          headingSize = 'lg';
+          headingVariant = 'h3';
+          break;
+        case 4:
+          headingSize = 'md';
+          headingVariant = 'h4';
+          break;
+        case 5:
+          headingSize = 'sm';
+          headingVariant = 'h5';
+          break;
+        case 6:
+          headingSize = 'xs';
+          headingVariant = 'h5';
+          break;
+        default:
+          headingSize = '';
+          headingVariant = '';
+          break;
+      }
+      return (
+        <Heading as={headingVariant} size={headingSize}>
+          {heading.children}
+        </Heading>
+      );
     },
     image: image => {
       return (
