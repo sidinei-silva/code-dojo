@@ -61,7 +61,7 @@ const DojoTopic: React.FC<PageProps> = props => {
       topic={topic}
     >
       <Grid
-        gap="1.75rem"
+        gap="9rem"
         marginTop="1.75rem"
         justifyItems="center"
         maxWidth="75rem"
@@ -76,7 +76,9 @@ const DojoTopic: React.FC<PageProps> = props => {
           >
             {topic.title}
           </Heading>
-          <MarkdownSlice content={topic.content} />
+          <Box>
+            <MarkdownSlice content={topic.content} />
+          </Box>
         </Box>
         <Box />
       </Grid>
