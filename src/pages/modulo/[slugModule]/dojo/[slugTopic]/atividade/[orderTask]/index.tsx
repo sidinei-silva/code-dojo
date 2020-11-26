@@ -72,7 +72,9 @@ const DojoTask: React.FC<PageProps> = props => {
             {task.title}
           </Heading>
 
-          <Text marginBottom="1.875rem">{`${task.description}`}</Text>
+          <Text marginBottom="1.875rem">
+            <div dangerouslySetInnerHTML={{ __html: task.description }} />
+          </Text>
         </Box>
         <Box>
           {!task.language && <div>Em breve</div>}
