@@ -59,18 +59,20 @@ const DojoTask: React.FC<PageProps> = props => {
       <Grid
         height="100%"
         maxWidth="75rem"
-        templateRows="6rem 1fr"
+        templateRows="1fr"
         minWidth={{ xl: '75rem' }}
       >
-        <Box textAlign="justify">
+        <Box textAlign="justify" paddingX="3.75rem">
           <Heading
             fontSize={{ base: '2xl', lg: '28px' }}
             fontWeight="700"
             marginBottom="0.5rem"
+            textAlign="center"
           >
             {task.title}
           </Heading>
-          <Text>{task.description}</Text>
+
+          <Text marginBottom="1.875rem">{`${task.description}`}</Text>
         </Box>
         <Box>
           {!task.language && <div>Em breve</div>}
