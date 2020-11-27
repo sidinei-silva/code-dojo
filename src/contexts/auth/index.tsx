@@ -6,7 +6,11 @@ import { getToken, setToken, removeToken } from '../../services/storage/token';
 
 const checkToken = async token => {
   ApiService.defaults.headers.Authorization = `Bearer ${token}`;
-  const { data: user } = await ApiService.get('users/me');
+  const user = await ApiService.get('users/me')
+    .then(response => response.data)
+    .catch(err => {
+      return false;
+    });
   if (user) return user;
   return null;
 };
