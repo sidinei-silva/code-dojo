@@ -88,6 +88,7 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
       templateRows={{ xs: 'repeat(2, 1fr)', lg: '1fr' }}
       templateColumns={{ lg: 'repeat(2, 1fr)' }}
       gap="1.75rem"
+      marginBottom={{ base: '0', xl: '4.5rem', xxl: '0' }}
     >
       <Flex direction="column">
         <Box onKeyDown={handleKeyDown} height="100%" width="100%">
