@@ -13,8 +13,14 @@ import { CgChevronLeft } from 'react-icons/cg';
 
 import DojoLayout from '../../../../../components/layouts/dojoLayout';
 import MarkdownSlice from '../../../../../components/sections/markdownSlice';
-import { getAllModules, getModuleBySlug } from '../../../../api/modules';
-import { getTopicBySlug, getAllTopicsByModule } from '../../../../api/topics';
+import {
+  getAllModules,
+  getModuleBySlug
+} from '../../../../api/modulesMarkdown';
+import {
+  getTopicBySlug,
+  getAllTopicsByModule
+} from '../../../../api/topicsMarkdown';
 
 interface Task {
   title: string;

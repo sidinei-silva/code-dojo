@@ -12,7 +12,7 @@ import React from 'react';
 import { CgChevronLeft } from 'react-icons/cg';
 
 import DashboardLayout from '../../../../components/layouts/dashboardLayout';
-import { getModuleBySlug, getAllModules } from '../../../api/modules';
+import { getModuleBySlug, getAllModules } from '../../../api/modulesMarkdown';
 
 interface Module {
   title: string;
