@@ -16,6 +16,16 @@ import MarkdownSlice from '../../../../../components/sections/markdownSlice';
 import { getAllModules, getModuleBySlug } from '../../../../api/modules';
 import { getTopicBySlug, getAllTopicsByModule } from '../../../../api/topics';
 
+interface Task {
+  title: string;
+  topic: string;
+  description: string;
+  order: number;
+  language: string;
+  ruleTask: string;
+  content: string;
+}
+
 interface Topic {
   title: string;
   slug: string;
@@ -23,6 +33,7 @@ interface Topic {
   image: string;
   order: number;
   content: string;
+  tasks: Array<Task>;
 }
 
 interface Module {
@@ -50,7 +61,7 @@ const DojoTopic: React.FC<PageProps> = props => {
       topic={topic}
     >
       <Grid
-        gap="1.75rem"
+        gap="9rem"
         marginTop="1.75rem"
         justifyItems="center"
         maxWidth="75rem"
@@ -65,7 +76,9 @@ const DojoTopic: React.FC<PageProps> = props => {
           >
             {topic.title}
           </Heading>
-          <MarkdownSlice content={topic.content} />
+          <Box>
+            <MarkdownSlice content={topic.content} />
+          </Box>
         </Box>
         <Box />
       </Grid>

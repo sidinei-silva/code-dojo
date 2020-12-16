@@ -62,7 +62,7 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
       as="nav"
       w="100%"
       paddingX={{ xxl: '330px' }}
-      backgroundColor="rgba(255,255,255,0.5)"
+      backgroundColor="white"
       color="black"
       boxShadow="md"
       height="3.75rem"
