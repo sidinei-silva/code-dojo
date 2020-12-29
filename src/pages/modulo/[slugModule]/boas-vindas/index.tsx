@@ -14,12 +14,22 @@ import { CgChevronLeft } from 'react-icons/cg';
 import DashboardLayout from '../../../../components/layouts/dashboardLayout';
 import { getModuleBySlug, getAllModules } from '../../../api/modulesMarkdown';
 
+interface Topic {
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  order: number;
+  content: string;
+}
+
 interface Module {
   title: string;
   slug: string;
   descriptionCard: string;
   description: string;
   image: string;
+  topics: Array<Topic>;
 }
 
 interface WelcomeModuloProps {
@@ -87,7 +97,11 @@ const WelcomeModulo: React.FC<WelcomeModuloProps> = props => {
               _hover={{ boxShadow: 'outline' }}
               _focus={{ boxShadow: 'outiline' }}
             >
-              <Link href="/">Iniciar</Link>
+              <Link
+                href={`/modulo/${module.slug}/dojo/${module.topics[0].slug}`}
+              >
+                Iniciar
+              </Link>
             </Button>
             <Button
               w="8.75rem"
