@@ -10,6 +10,7 @@ import {
   useToast
 } from '@chakra-ui/core';
 import { Formik, Field } from 'formik';
+import Link from 'next/link';
 import React from 'react';
 
 import useAuth from '../../../../contexts/auth';
@@ -124,6 +125,9 @@ const FormSignUp: React.FC<BoxProps> = boxProps => {
                 >
                   Cadastrar-se
                 </Button>
+              </Flex>
+              <Flex justify="center">
+                <Link href="/entrar">Já possuo cadastro</Link>
               </Flex>
             </Grid>
           </form>
