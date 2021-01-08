@@ -40,7 +40,8 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dataCheckTask, setDataCheckTask] = useState({
     message: '',
-    line: null
+    line: null,
+    result: false
   });
 
   const checkTask = async contentCode => {
@@ -232,7 +233,12 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Resultado</ModalHeader>
+          <ModalHeader
+            backgroundColor={dataCheckTask.result ? 'green.500' : 'red.500'}
+            color="white"
+          >
+            Resultado
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text>{dataCheckTask.message}</Text>
