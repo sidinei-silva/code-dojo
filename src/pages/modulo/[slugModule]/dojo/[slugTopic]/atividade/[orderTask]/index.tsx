@@ -7,12 +7,12 @@ import DojoJavascript from '../../../../../../../components/sections/dojosTasks/
 import {
   getAllModules,
   getModuleBySlug
-} from '../../../../../../api/modulesMarkdown';
-import { getTaskBySlug } from '../../../../../../api/tasksMarkdown';
+} from '../../../../../../../services/parseMarkdown/modulesMarkdown';
+import { getTaskBySlug } from '../../../../../../../services/parseMarkdown/tasksMarkdown';
 import {
   getTopicBySlug,
   getAllTopicsByModule
-} from '../../../../../../api/topicsMarkdown';
+} from '../../../../../../../services/parseMarkdown/topicsMarkdown';
 
 interface Task {
   title: string;

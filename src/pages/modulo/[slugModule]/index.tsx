@@ -13,7 +13,10 @@ import { CgChevronLeft } from 'react-icons/cg';
 
 import DashboardLayout from '../../../components/layouts/dashboardLayout';
 import CardTopic from '../../../components/sections/cardTopic';
-import { getModuleBySlug, getAllModules } from '../../api/modulesMarkdown';
+import {
+  getModuleBySlug,
+  getAllModules
+} from '../../../services/parseMarkdown/modulesMarkdown';
 
 interface Topic {
   title: string;

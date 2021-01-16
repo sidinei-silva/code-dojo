@@ -16,11 +16,11 @@ import MarkdownSlice from '../../../../../components/sections/markdownSlice';
 import {
   getAllModules,
   getModuleBySlug
-} from '../../../../api/modulesMarkdown';
+} from '../../../../../services/parseMarkdown/modulesMarkdown';
 import {
   getTopicBySlug,
   getAllTopicsByModule
-} from '../../../../api/topicsMarkdown';
+} from '../../../../../services/parseMarkdown/topicsMarkdown';
 
 interface Task {
   title: string;
