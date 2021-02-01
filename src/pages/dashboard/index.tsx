@@ -1,9 +1,10 @@
 import { Box, Heading, Grid, Flex } from '@chakra-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
+import ApiService from '../../services/api';
 import { getAllModules } from '../../services/parseMarkdown/modulesMarkdown';
 
 interface Module {
@@ -20,6 +21,26 @@ interface HomeProps {
 
 const Dashboard: React.FC<HomeProps> = props => {
   const { modules } = props;
+
+  const [lastModule, setLastModule] = useState<Module>(null);
+  const [lastTopic, setLastTopic] = useState('');
+
+  const getLastModule = async () => {
+    ApiService.get('/modules').then(({ data: responseData }) => {
+      if (Object.entries(responseData.data).length > 0) {
+        const findLastModule = modules.find(
+          module => module.slug === responseData.data[0].module_slug
+        );
+        const { topics } = responseData.data[0];
+        setLastTopic(topics[topics.length - 1].topic_slug);
+        setLastModule(findLastModule);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getLastModule();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -41,34 +62,35 @@ const Dashboard: React.FC<HomeProps> = props => {
             !
           </Heading>
         </Box>
-        <Box textAlign="center">
-          <Heading
-            fontSize={{ base: 'lg', lg: 'xl', xl: '1.5rem' }}
-            fontWeight="700"
-          >
-            Ultimo modulo acessado
-          </Heading>
-          <Heading
-            marginTop="1em"
-            fontWeight="300"
-            color="gray.500"
-            fontSize={{ base: 'lg', lg: 'xl', xl: '1.1rem' }}
-          >
-            Continue aqui o ultimo modulo visitado
-          </Heading>
-        </Box>
-        <Flex justify="center">
-          <LastModule
-            image="/svg/html5.svg"
-            title="Conceitos e Estrutura do HTML"
-            description="There’s a quick and easy way to help your kids become happier. is
-          simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the
-          1500s, when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book."
-            link="/"
-          />
-        </Flex>
+        {lastModule && (
+          <>
+            <Box textAlign="center">
+              <Heading
+                fontSize={{ base: 'lg', lg: 'xl', xl: '1.5rem' }}
+                fontWeight="700"
+              >
+                Ultimo modulo acessado
+              </Heading>
+              <Heading
+                marginTop="1em"
+                fontWeight="300"
+                color="gray.500"
+                fontSize={{ base: 'lg', lg: 'xl', xl: '1.1rem' }}
+              >
+                Continue aqui o ultimo modulo visitado
+              </Heading>
+            </Box>
+            <Flex justify="center">
+              <LastModule
+                image={lastModule.image}
+                title={lastModule.title}
+                description={lastModule.description}
+                link={`/modulo/${lastModule.slug}/dojo/${lastTopic}`}
+              />
+            </Flex>
+          </>
+        )}
+
         <Box textAlign="center" marginTop={{ lg: '1.8rem' }}>
           <Heading
             fontSize={{ base: 'lg', lg: 'xl', xl: '1.5rem' }}
