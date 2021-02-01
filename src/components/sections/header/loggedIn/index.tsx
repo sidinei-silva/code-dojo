@@ -48,7 +48,7 @@ const MenuItems = props => {
 const HeaderLoggedIn = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Grid
       position="absolute"
@@ -74,8 +74,7 @@ const HeaderLoggedIn = props => {
         align="center"
         display={{ base: 'none', md: 'flex' }}
       >
-        <MenuItems to="/">Home</MenuItems>
-        <MenuItems to="/how">Módulos</MenuItems>
+        <MenuItems to="/dashboard">Home</MenuItems>
         <MenuItems to="/news">Novidades</MenuItems>
       </Flex>
 
@@ -86,7 +85,7 @@ const HeaderLoggedIn = props => {
         maxWidth="200px"
       >
         <Avatar
-          name="David Sylvies"
+          name={user.name}
           src="https://bit.ly/tioluwani-kolawole"
           size="sm"
           fontWeight="700"
@@ -94,7 +93,7 @@ const HeaderLoggedIn = props => {
         />
         <Menu>
           <MenuButton as={Text}>
-            David Sylvies <Icon as={CgChevronDown} size="1em" color="black" />
+            {user.name} <Icon as={CgChevronDown} size="1em" color="black" />
           </MenuButton>
           <MenuList>
             <MenuGroup title="Perfil">
