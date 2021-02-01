@@ -48,7 +48,7 @@ export default authenticated(
     if (req.method === 'GET') {
       const modules = await userModulesColection
         .find({
-          userId: new ObjectId(userId)
+          user_id: new ObjectId(userId)
         })
         .toArray();
 
