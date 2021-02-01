@@ -162,14 +162,14 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                         </Flex>
                       </Link>
                     ) : (
-                      <Text>
+                      <Link href="/" isDisabled>
                         <Flex marginBottom={2}>
                           <ListIcon icon="check-circle" color="gray.300" />{' '}
                           <Text>
                             {topicList.order} - {topicList.title}
                           </Text>
                         </Flex>
-                      </Text>
+                      </Link>
                     )}
 
                     {topicList.tasks.map(taskList => (
@@ -198,7 +198,7 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                                 </Flex>
                               </Link>
                             ) : (
-                              <Text>
+                              <Link href="/" isDisabled>
                                 <Flex>
                                   <ListIcon
                                     size="0.8rem"
@@ -207,7 +207,7 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                                   />
                                   <Text>{taskList.title}</Text>
                                 </Flex>
-                              </Text>
+                              </Link>
                             )}
                           </ListItem>
                         </List>
