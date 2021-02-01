@@ -71,7 +71,7 @@ export default authenticated(
 
       await userModulesColection.updateOne(
         {
-          userId: new ObjectId(userId),
+          user_id: new ObjectId(userId),
           module_slug: moduleSlug
         },
         {
