@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 import matter from 'gray-matter';
 
-import { getAllTasksByTopics } from './tasks';
+import { getAllTasksByTopics } from './tasksMarkdown';
 
 export async function getAllTopicsByModule(moduleSlug) {
   const context = require.context(`../../../_modules`, true, /\.topic.md$/);

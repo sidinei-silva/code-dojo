@@ -4,7 +4,7 @@ import React from 'react';
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
-import { getAllModules } from '../api/modules';
+import { getAllModules } from '../../services/parseMarkdown/modulesMarkdown';
 
 interface Module {
   title: string;

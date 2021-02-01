@@ -10,6 +10,7 @@ import {
   useToast
 } from '@chakra-ui/core';
 import { Formik, Field } from 'formik';
+import Link from 'next/link';
 import React from 'react';
 
 import useAuth from '../../../../contexts/auth';
@@ -116,6 +117,9 @@ const FormSignUp: React.FC<BoxProps> = boxProps => {
                 >
                   Esqueci a senha
                 </Button>
+              </Flex>
+              <Flex justify="center">
+                <Link href="/cadastrar">Não possuo cadastro</Link>
               </Flex>
             </Grid>
           </form>

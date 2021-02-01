@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable camelcase */
 import {
   Box,
   Heading,
@@ -8,11 +10,24 @@ import {
   Icon,
   Button
 } from '@chakra-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgChevronLeft } from 'react-icons/cg';
 
 import DashboardLayout from '../../../../components/layouts/dashboardLayout';
-import { getModuleBySlug, getAllModules } from '../../../api/modules';
+import ApiService from '../../../../services/api';
+import {
+  getModuleBySlug,
+  getAllModules
+} from '../../../../services/parseMarkdown/modulesMarkdown';
+
+interface Topic {
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  order: number;
+  content: string;
+}
 
 interface Module {
   title: string;
@@ -20,6 +35,7 @@ interface Module {
   descriptionCard: string;
   description: string;
   image: string;
+  topics: Array<Topic>;
 }
 
 interface WelcomeModuloProps {
@@ -28,6 +44,39 @@ interface WelcomeModuloProps {
 
 const WelcomeModulo: React.FC<WelcomeModuloProps> = props => {
   const { module } = props;
+
+  const [lastTopic, setLastTopic] = useState(null);
+
+  const getTopicRegistred = async () => {
+    ApiService.get(`/modules/${module.slug}`)
+      .then(({ data: responseData }) => {
+        if (Object.entries(responseData.data).length > 0) {
+          const { topics } = responseData.data;
+          setLastTopic(topics[topics.length - 1].topic_slug);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTopicRegistred();
+  }, []);
+
+  const handleButtonInit = () => {
+    if (!lastTopic) {
+      ApiService.post(`/modules/topics`, {
+        module_slug: module.slug,
+        topic_slug: module.topics[0].slug
+      });
+    }
+
+    ApiService.post(`/modules/topics`, {
+      module_slug: module.slug,
+      topic_slug: lastTopic
+    });
+  };
 
   return (
     <DashboardLayout>
@@ -79,16 +128,23 @@ const WelcomeModulo: React.FC<WelcomeModuloProps> = props => {
             </Text>
           </Box>
           <Grid justifyContent="center" gap="1rem" alignSelf="center">
-            <Button
-              w="8.75rem"
-              size="md"
-              bg="black"
-              color="white"
-              _hover={{ boxShadow: 'outline' }}
-              _focus={{ boxShadow: 'outiline' }}
+            <Link
+              onClick={handleButtonInit}
+              href={`/modulo/${module.slug}/dojo/${
+                !lastTopic ? module.topics[0].slug : lastTopic
+              }`}
             >
-              <Link href="/">Iniciar</Link>
-            </Button>
+              <Button
+                w="8.75rem"
+                size="md"
+                bg="black"
+                color="white"
+                _hover={{ boxShadow: 'outline' }}
+                _focus={{ boxShadow: 'outiline' }}
+              >
+                {!lastTopic ? 'Iniciar' : 'Continuar'}
+              </Button>
+            </Link>
             <Button
               w="8.75rem"
               size="md"

@@ -4,12 +4,15 @@ import React from 'react';
 import DojoLayout from '../../../../../../../components/layouts/dojoLayout';
 import DojoHtml from '../../../../../../../components/sections/dojosTasks/dojoHtml';
 import DojoJavascript from '../../../../../../../components/sections/dojosTasks/dojoJavascript';
-import { getAllModules, getModuleBySlug } from '../../../../../../api/modules';
-import { getTaskBySlug } from '../../../../../../api/tasks';
+import {
+  getAllModules,
+  getModuleBySlug
+} from '../../../../../../../services/parseMarkdown/modulesMarkdown';
+import { getTaskBySlug } from '../../../../../../../services/parseMarkdown/tasksMarkdown';
 import {
   getTopicBySlug,
   getAllTopicsByModule
-} from '../../../../../../api/topics';
+} from '../../../../../../../services/parseMarkdown/topicsMarkdown';
 
 interface Task {
   title: string;

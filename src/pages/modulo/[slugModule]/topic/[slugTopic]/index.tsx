@@ -13,8 +13,11 @@ import { CgChevronLeft } from 'react-icons/cg';
 
 import DashboardLayout from '../../../../../components/layouts/dashboardLayout';
 import MarkdownSlice from '../../../../../components/sections/markdownSlice';
-import { getAllModules } from '../../../../api/modules';
-import { getTopicBySlug, getAllTopicsByModule } from '../../../../api/topics';
+import { getAllModules } from '../../../../../services/parseMarkdown/modulesMarkdown';
+import {
+  getTopicBySlug,
+  getAllTopicsByModule
+} from '../../../../../services/parseMarkdown/topicsMarkdown';
 
 interface Topic {
   title: string;
