@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layouts/dashboardLayout';
 import CardModule from '../../components/sections/cardModule';
 import LastModule from '../../components/sections/lastModule';
+import useAuth from '../../contexts/auth';
 import ApiService from '../../services/api';
 import { getAllModules } from '../../services/parseMarkdown/modulesMarkdown';
 
@@ -21,7 +22,7 @@ interface HomeProps {
 
 const Dashboard: React.FC<HomeProps> = props => {
   const { modules } = props;
-
+  const { user } = useAuth();
   const [lastModule, setLastModule] = useState<Module>(null);
   const [lastTopic, setLastTopic] = useState('');
 
@@ -57,7 +58,7 @@ const Dashboard: React.FC<HomeProps> = props => {
               fontSize={{ base: '2xl', lg: '28px', xl: '2.6rem' }}
               fontWeight="900"
             >
-              David Sylvian
+              {user?.name || ''}
             </Heading>
             !
           </Heading>
