@@ -75,6 +75,9 @@ export default authenticated(
           module_slug: moduleSlug
         },
         {
+          $currentDate: {
+            updated_at: true
+          },
           $addToSet: {
             topics: {
               topic_slug: topicSlug,
