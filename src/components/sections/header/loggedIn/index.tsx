@@ -31,6 +31,7 @@ import useAuth from '../../../../contexts/auth';
 
 const MenuItems = props => {
   const { children, isLast, to = '/', ...rest } = props;
+
   return (
     <Text
       color="black"
@@ -111,6 +112,12 @@ const HeaderLoggedIn = props => {
             </MenuGroup>
           </MenuList>
         </Menu>
+
+        <Box marginLeft="1rem" display={{ base: 'none', md: 'flex' }}>
+          <Button size="xs" variantColor="red" onClick={() => logout()}>
+            Sair
+          </Button>
+        </Box>
       </Flex>
 
       <Box
