@@ -50,6 +50,8 @@ export default authenticated(
         .find({
           user_id: new ObjectId(userId)
         })
+        .sort({ updated_at: -1 })
+        .limit(10)
         .toArray();
 
       res.statusCode = 200;
