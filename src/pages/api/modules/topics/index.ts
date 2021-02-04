@@ -69,26 +69,33 @@ export default authenticated(
         });
       }
 
-      await userModulesColection.updateOne(
-        {
-          user_id: new ObjectId(userId),
-          module_slug: moduleSlug
-        },
-        {
-          $currentDate: {
-            updated_at: true
+      const topicInModule = await userModulesColection.findOne({
+        user_id: new ObjectId(userId),
+        module_slug: moduleSlug,
+        topics: { $elemMatch: { topic_slug: topicSlug } }
+      });
+
+      if (!topicInModule) {
+        await userModulesColection.updateOne(
+          {
+            user_id: new ObjectId(userId),
+            module_slug: moduleSlug
           },
-          $addToSet: {
-            topics: {
-              topic_slug: topicSlug,
-              tasks: []
+          {
+            $currentDate: {
+              updated_at: true
+            },
+            $addToSet: {
+              topics: {
+                topic_slug: topicSlug
+              }
             }
+          },
+          {
+            upsert: true
           }
-        },
-        {
-          upsert: true
-        }
-      );
+        );
+      }
 
       res.statusCode = 200;
       return res.json({ status: 'success', data: {} });
