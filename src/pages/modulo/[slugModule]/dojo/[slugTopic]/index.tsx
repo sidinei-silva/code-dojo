@@ -62,10 +62,12 @@ interface PageProps {
 
 const DojoTopic: React.FC<PageProps> = props => {
   const { topic, module, listTopics } = props;
+  const [isLoading, setIsLoading] = useState(false);
   const [isCompletly, setIsCompletly] = useState(false);
   const [urlCompletly, setUrlComplety] = useState('');
 
   const getTopicsConcluded = async () => {
+    setIsLoading(true);
     await ApiService.get(`/modules/${module.slug}`).then(
       ({ data: responseData }) => {
         const { topics } = responseData.data;
@@ -85,6 +87,7 @@ const DojoTopic: React.FC<PageProps> = props => {
         }
       }
     );
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -124,7 +127,11 @@ const DojoTopic: React.FC<PageProps> = props => {
           </Grid>
         </DojoLayout>
       )}
-      <Modal isCentered isOpen={!isCompletly} closeOnOverlayClick={false}>
+      <Modal
+        isCentered
+        isOpen={!isCompletly && !isLoading}
+        closeOnOverlayClick={false}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
