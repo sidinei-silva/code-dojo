@@ -75,7 +75,7 @@ const DojoTopic: React.FC<PageProps> = props => {
           !topics.some(topicConclued => topicConclued.topic_slug === topic.slug)
         ) {
           const lastTopic = topics[topics.length - 1];
-          if (lastTopic.tasks.length > 0) {
+          if (lastTopic.tasks?.length > 0) {
             const lastTask = lastTopic.tasks[lastTopic.tasks.length - 1];
             const url = `/modulo/${module.slug}/dojo/${lastTopic.topic_slug}/atividade/${lastTask}`;
             setUrlComplety(url);
