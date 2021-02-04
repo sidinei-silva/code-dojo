@@ -180,7 +180,7 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                         >
                           <ListItem marginTop="0.3rem">
                             {topicsConcluded.some(topicConcluded =>
-                              topicConcluded.tasks.some(
+                              topicConcluded.tasks?.some(
                                 taskConcluded =>
                                   taskConcluded.order === taskList.order
                               )
