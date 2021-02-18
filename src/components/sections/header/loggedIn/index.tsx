@@ -96,7 +96,7 @@ const HeaderLoggedIn = props => {
           <MenuButton as={Text}>
             {user.name} <Icon as={CgChevronDown} size="1em" color="black" />
           </MenuButton>
-          <MenuList>
+          {/* <MenuList>
             <MenuGroup title="Perfil">
               <MenuItem>Minha conta</MenuItem>
               <MenuItem>Minhas estatisticas </MenuItem>
@@ -110,7 +110,7 @@ const HeaderLoggedIn = props => {
             <MenuGroup>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuGroup>
-          </MenuList>
+          </MenuList> */}
         </Menu>
 
         <Box marginLeft="1rem" display={{ base: 'none', md: 'flex' }}>
