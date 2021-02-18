@@ -53,10 +53,16 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
       const findIndex = listTopics.findIndex(
         topicFind => topicFind.slug === topic.slug
       );
+
       if (listTopics[findIndex + 1]) {
         const verifyNextTopic = topicsConcluded.find(
-          topicConclued => topicConclued.slug === listTopics[findIndex + 1].slug
+          topicConclued =>
+            topicConclued.topic_slug === listTopics[findIndex + 1].slug
         );
+
+        console.info(verifyNextTopic);
+        console.info(topicsConcluded);
+        console.info(listTopics[findIndex + 1]);
 
         setCheckNext(!!verifyNextTopic);
       }
