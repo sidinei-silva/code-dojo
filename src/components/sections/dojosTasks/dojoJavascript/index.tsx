@@ -16,10 +16,12 @@ import {
   useDisclosure
 } from '@chakra-ui/core';
 import axios from 'axios';
-import React, { KeyboardEvent, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
 import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
 
 import executeCode from '../../../../lib/runners/javacsript/execute';
+import topics from '../../../../pages/api/modules/topics';
+import ApiService from '../../../../services/api';
 import CodeEditor from '../../codeEditor';
 import ConsoleJavascriptViewer, {
   addConsole,
@@ -30,10 +32,20 @@ interface DojoJavascriptProps {
   seed: string;
   ruleTask: string;
   moduleSlug: string;
+  topicSlug: string;
+  taskOrder: number;
+  nextTopicSlug: string;
 }
 
 const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
-  const { seed, ruleTask, moduleSlug } = props;
+  const {
+    seed,
+    ruleTask,
+    moduleSlug,
+    topicSlug,
+    taskOrder,
+    nextTopicSlug
+  } = props;
   const [content, setContent] = useState(seed);
   const [fullScreen, setFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -53,6 +65,20 @@ const DojoJavascript: React.FC<DojoJavascriptProps> = props => {
       })
       .then(response => response.data)
       .catch(err => console.error(err));
+
+    if (data?.result) {
+      await ApiService.post('/modules/topics', {
+        module_slug: moduleSlug,
+        topic_slug: nextTopicSlug
+      }).then(async response => {
+        await ApiService.post('/modules/topics/tasks', {
+          module_slug: moduleSlug,
+          topic_slug: topicSlug,
+          task_order: taskOrder
+        });
+      });
+    }
+
     setDataCheckTask(data);
   };
 

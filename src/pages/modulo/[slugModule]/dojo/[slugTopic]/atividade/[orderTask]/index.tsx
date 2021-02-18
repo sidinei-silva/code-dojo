@@ -1,5 +1,5 @@
 import { Box, Heading, Grid, Text } from '@chakra-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import DojoLayout from '../../../../../../../components/layouts/dojoLayout';
 import DojoHtml from '../../../../../../../components/sections/dojosTasks/dojoHtml';
@@ -52,6 +52,19 @@ interface PageProps {
 const DojoTask: React.FC<PageProps> = props => {
   const { task, topic, module, listTopics } = props;
 
+  const [nextTopicSlug, setNextTopicSlug] = useState('');
+
+  useEffect(() => {
+    const findIndex = listTopics.findIndex(
+      topicFind => topicFind.slug === topic.slug
+    );
+    if (listTopics[findIndex + 1]) {
+      setNextTopicSlug(listTopics[findIndex + 1].slug);
+    } else {
+      setNextTopicSlug(listTopics[findIndex].slug);
+    }
+  }, []);
+
   return (
     <DojoLayout
       moduleTitle={module.title}
@@ -86,7 +99,10 @@ const DojoTask: React.FC<PageProps> = props => {
             <DojoJavascript
               ruleTask={task.ruleTask}
               moduleSlug={module.slug}
+              topicSlug={topic.slug}
+              taskOrder={task.order}
               seed={task.content}
+              nextTopicSlug={nextTopicSlug}
             />
           )}
         </Box>
