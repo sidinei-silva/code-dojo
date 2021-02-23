@@ -179,11 +179,14 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                           key={topicList.slug + taskList.order}
                         >
                           <ListItem marginTop="0.3rem">
-                            {topicsConcluded.some(topicConcluded =>
-                              topicConcluded.tasks?.some(
-                                taskConcluded =>
-                                  taskConcluded.order === taskList.order
-                              )
+                            {topicsConcluded.find(
+                              topicConcluded =>
+                                topicConcluded.topic_slug === topicList.slug &&
+                                topicConcluded.tasks &&
+                                topicConcluded.tasks.find(
+                                  taskConcluded =>
+                                    taskConcluded.task_order === taskList.order
+                                )
                             ) ? (
                               <Link
                                 href={`/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`}
