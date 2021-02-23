@@ -60,10 +60,6 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
             topicConclued.topic_slug === listTopics[findIndex + 1].slug
         );
 
-        console.info(verifyNextTopic);
-        console.info(topicsConcluded);
-        console.info(listTopics[findIndex + 1]);
-
         setCheckNext(!!verifyNextTopic);
       }
     }
@@ -138,11 +134,11 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
         </Link>
       </Flex>
       <Flex justify="center" justifySelf="center" align="flex-start">
-        <Button variant="ghost">
-          <Link href="/dashboard">
+        <Link href="/dashboard">
+          <Button variant="ghost">
             <Box as={CgLogOff} size="1.7em" color="black" />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </Flex>
     </Grid>
   );
