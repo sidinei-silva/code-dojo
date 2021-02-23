@@ -93,9 +93,10 @@ const HeaderLoggedIn = props => {
           mr={2}
         />
         <Menu>
-          <MenuButton as={Text}>
+          {/* <MenuButton as={Text}>
             {user.name} <Icon as={CgChevronDown} size="1em" color="black" />
-          </MenuButton>
+          </MenuButton> */}
+          <Text>{user.name}</Text>
           {/* <MenuList>
             <MenuGroup title="Perfil">
               <MenuItem>Minha conta</MenuItem>
