@@ -17,10 +17,13 @@ import {
   List,
   ListItem,
   ListIcon,
-  Link
+  Link,
+  PseudoBox
 } from '@chakra-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgMenuLeftAlt } from 'react-icons/cg';
+
+import ApiService from '../../../../services/api';
 
 interface Task {
   title: string;
@@ -58,6 +61,19 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
   } = useDisclosure();
   const listRef = React.useRef();
 
+  const [topicsConcluded, setTopicsConcluded] = useState([]);
+
+  const getTopicsConcluded = async () => {
+    ApiService.get(`/modules/${moduleSlug}`).then(({ data: responseData }) => {
+      const { topics } = responseData.data;
+      setTopicsConcluded(topics);
+    });
+  };
+
+  useEffect(() => {
+    getTopicsConcluded();
+  }, []);
+
   return (
     <Grid
       position="absolute"
@@ -73,12 +89,16 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
       {...props}
     >
       <Flex w="100%" justify="flex-start">
-        <Box
+        <PseudoBox
           as={CgMenuLeftAlt}
           ref={listRef}
           onClick={onOpenList}
           size="1.7em"
           color="black"
+          _hover={{
+            borderColor: 'gray.300',
+            cursor: 'pointer'
+          }}
         />
       </Flex>
 
@@ -132,34 +152,74 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
               <List spacing={3}>
                 {listTopics.map(topicList => (
                   <ListItem key={topicList.slug}>
-                    <Link href={`/modulo/${moduleSlug}/dojo/${topicList.slug}`}>
-                      <Flex marginBottom={2}>
-                        <ListIcon icon="check-circle" color="green.500" />{' '}
-                        <Text>
-                          {topicList.order} - {topicList.title}
-                        </Text>
-                      </Flex>
-                    </Link>
-                    {topicList.tasks.map(taskList => (
-                      <List
-                        marginLeft="1rem"
-                        key={topicList.slug + taskList.order}
+                    {topicsConcluded.some(
+                      topicConcluded =>
+                        topicConcluded.topic_slug === topicList.slug
+                    ) ? (
+                      <Link
+                        href={`/modulo/${moduleSlug}/dojo/${topicList.slug}`}
                       >
-                        <ListItem marginTop="0.3rem">
-                          <Link
-                            href={`/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`}
-                          >
-                            <Flex>
-                              <ListIcon
-                                size="0.8rem"
-                                icon="check-circle"
-                                color="green.500"
-                              />
-                              <Text>{taskList.title}</Text>
-                            </Flex>
-                          </Link>
-                        </ListItem>
-                      </List>
+                        <Flex marginBottom={2}>
+                          <ListIcon icon="check-circle" color="green.500" />{' '}
+                          <Text>
+                            {topicList.order} - {topicList.title}
+                          </Text>
+                        </Flex>
+                      </Link>
+                    ) : (
+                      <Link href="/" isDisabled>
+                        <Flex marginBottom={2}>
+                          <ListIcon icon="check-circle" color="gray.300" />{' '}
+                          <Text>
+                            {topicList.order} - {topicList.title}
+                          </Text>
+                        </Flex>
+                      </Link>
+                    )}
+
+                    {topicList.tasks.map(taskList => (
+                      <>
+                        <List
+                          marginLeft="1rem"
+                          key={topicList.slug + taskList.order}
+                        >
+                          <ListItem marginTop="0.3rem">
+                            {topicsConcluded.find(
+                              topicConcluded =>
+                                topicConcluded.topic_slug === topicList.slug &&
+                                topicConcluded.tasks &&
+                                topicConcluded.tasks.find(
+                                  taskConcluded =>
+                                    taskConcluded.task_order === taskList.order
+                                )
+                            ) ? (
+                              <Link
+                                href={`/modulo/${moduleSlug}/dojo/${topicList.slug}/atividade/${taskList.order}`}
+                              >
+                                <Flex>
+                                  <ListIcon
+                                    size="0.8rem"
+                                    icon="check-circle"
+                                    color="green.500"
+                                  />
+                                  <Text>{taskList.title}</Text>
+                                </Flex>
+                              </Link>
+                            ) : (
+                              <Link href="/" isDisabled>
+                                <Flex>
+                                  <ListIcon
+                                    size="0.8rem"
+                                    icon="check-circle"
+                                    color="gray.300"
+                                  />
+                                  <Text>{taskList.title}</Text>
+                                </Flex>
+                              </Link>
+                            )}
+                          </ListItem>
+                        </List>
+                      </>
                     ))}
                   </ListItem>
                 ))}

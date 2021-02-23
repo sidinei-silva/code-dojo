@@ -2,7 +2,7 @@ import { MongoClient, Db, ObjectId } from 'mongodb';
 import { NextApiResponse } from 'next';
 import url from 'url';
 
-import authenticated, { requestCustom } from '../../../../middlewares/auth';
+import authenticated, { requestCustom } from '../../../../../middlewares/auth';
 
 let cachedDb: Db = null;
 
@@ -51,7 +51,11 @@ export default authenticated(
         return res.json({ status: 'error', message: 'Body not present' });
       }
 
-      const { topic_slug: topicSlug, module_slug: moduleSlug } = req.body;
+      const {
+        task_order: taskOrder,
+        topic_slug: topicSlug,
+        module_slug: moduleSlug
+      } = req.body;
 
       if (!moduleSlug) {
         res.statusCode = 400;
@@ -69,33 +73,32 @@ export default authenticated(
         });
       }
 
-      const topicInModule = await userModulesColection.findOne({
-        user_id: new ObjectId(userId),
-        module_slug: moduleSlug,
-        topics: { $elemMatch: { topic_slug: topicSlug } }
-      });
-
-      if (!topicInModule) {
-        await userModulesColection.updateOne(
-          {
-            user_id: new ObjectId(userId),
-            module_slug: moduleSlug
-          },
-          {
-            $currentDate: {
-              updated_at: true
-            },
-            $addToSet: {
-              topics: {
-                topic_slug: topicSlug
-              }
-            }
-          },
-          {
-            upsert: true
-          }
-        );
+      if (!taskOrder) {
+        res.statusCode = 400;
+        return res.json({
+          status: 'error',
+          message: 'Task Order (task_order) not present'
+        });
       }
+
+      await userModulesColection.updateOne(
+        {
+          user_id: new ObjectId(userId),
+          module_slug: moduleSlug,
+          topics: { $elemMatch: { topic_slug: topicSlug } }
+        },
+        {
+          $currentDate: {
+            updated_at: true
+          },
+          $addToSet: {
+            'topics.$.tasks': { task_order: taskOrder }
+          }
+        },
+        {
+          upsert: true
+        }
+      );
 
       res.statusCode = 200;
       return res.json({ status: 'success', data: {} });

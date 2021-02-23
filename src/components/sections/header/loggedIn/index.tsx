@@ -31,6 +31,7 @@ import useAuth from '../../../../contexts/auth';
 
 const MenuItems = props => {
   const { children, isLast, to = '/', ...rest } = props;
+
   return (
     <Text
       color="black"
@@ -48,7 +49,7 @@ const MenuItems = props => {
 const HeaderLoggedIn = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Grid
       position="absolute"
@@ -74,8 +75,7 @@ const HeaderLoggedIn = props => {
         align="center"
         display={{ base: 'none', md: 'flex' }}
       >
-        <MenuItems to="/">Home</MenuItems>
-        <MenuItems to="/how">Módulos</MenuItems>
+        <MenuItems to="/dashboard">Home</MenuItems>
         <MenuItems to="/news">Novidades</MenuItems>
       </Flex>
 
@@ -86,17 +86,18 @@ const HeaderLoggedIn = props => {
         maxWidth="200px"
       >
         <Avatar
-          name="David Sylvies"
+          name={user.name}
           src="https://bit.ly/tioluwani-kolawole"
           size="sm"
           fontWeight="700"
           mr={2}
         />
         <Menu>
-          <MenuButton as={Text}>
-            David Sylvies <Icon as={CgChevronDown} size="1em" color="black" />
-          </MenuButton>
-          <MenuList>
+          {/* <MenuButton as={Text}>
+            {user.name} <Icon as={CgChevronDown} size="1em" color="black" />
+          </MenuButton> */}
+          <Text>{user.name}</Text>
+          {/* <MenuList>
             <MenuGroup title="Perfil">
               <MenuItem>Minha conta</MenuItem>
               <MenuItem>Minhas estatisticas </MenuItem>
@@ -110,8 +111,14 @@ const HeaderLoggedIn = props => {
             <MenuGroup>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuGroup>
-          </MenuList>
+          </MenuList> */}
         </Menu>
+
+        <Box marginLeft="1rem" display={{ base: 'none', md: 'flex' }}>
+          <Button size="xs" variantColor="red" onClick={() => logout()}>
+            Sair
+          </Button>
+        </Box>
       </Flex>
 
       <Box

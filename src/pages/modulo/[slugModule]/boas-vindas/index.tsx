@@ -65,17 +65,17 @@ const WelcomeModulo: React.FC<WelcomeModuloProps> = props => {
   }, []);
 
   const handleButtonInit = () => {
-    if (!lastTopic) {
+    if (lastTopic) {
+      ApiService.post(`/modules/topics`, {
+        module_slug: module.slug,
+        topic_slug: lastTopic
+      });
+    } else {
       ApiService.post(`/modules/topics`, {
         module_slug: module.slug,
         topic_slug: module.topics[0].slug
       });
     }
-
-    ApiService.post(`/modules/topics`, {
-      module_slug: module.slug,
-      topic_slug: lastTopic
-    });
   };
 
   return (

@@ -1,7 +1,9 @@
 import { Box, Flex, Grid, Text, Button, BoxProps, Link } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgArrowLongRight, CgArrowLongLeft, CgLogOff } from 'react-icons/cg';
+
+import ApiService from '../../../../services/api';
 
 interface Task {
   title: string;
@@ -31,6 +33,37 @@ interface FooterDojoProps extends BoxProps {
 const FooterDojo: React.FC<FooterDojoProps> = props => {
   const { listTopics, topic, moduleSlug } = props;
   const router = useRouter();
+  const [topicsConcluded, setTopicsConcluded] = useState([]);
+  const [checkNext, setCheckNext] = useState(true);
+
+  const getTopicsConcluded = async () => {
+    ApiService.get(`/modules/${moduleSlug}`).then(({ data: responseData }) => {
+      const { topics } = responseData.data;
+
+      setTopicsConcluded(topics);
+    });
+  };
+
+  useEffect(() => {
+    getTopicsConcluded();
+  }, []);
+
+  useEffect(() => {
+    if (router.query?.orderTask) {
+      const findIndex = listTopics.findIndex(
+        topicFind => topicFind.slug === topic.slug
+      );
+
+      if (listTopics[findIndex + 1]) {
+        const verifyNextTopic = topicsConcluded.find(
+          topicConclued =>
+            topicConclued.topic_slug === listTopics[findIndex + 1].slug
+        );
+
+        setCheckNext(!!verifyNextTopic);
+      }
+    }
+  }, [topicsConcluded]);
 
   const currentPath = router.asPath;
 
@@ -82,12 +115,18 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
           {pathsTopicsAndTaks.indexOf(currentPath) + 1}/
           {pathsTopicsAndTaks.length}
         </Text>
-        <Link href={nextUrl}>
+        <Link
+          href={nextUrl}
+          isDisabled={
+            pathsTopicsAndTaks.indexOf(currentPath) + 1 ===
+              pathsTopicsAndTaks.length || !checkNext
+          }
+        >
           <Button
             variant="ghost"
             isDisabled={
               pathsTopicsAndTaks.indexOf(currentPath) + 1 ===
-              pathsTopicsAndTaks.length
+                pathsTopicsAndTaks.length || !checkNext
             }
           >
             <Box as={CgArrowLongRight} size="1.7em" color="black" />
@@ -95,11 +134,11 @@ const FooterDojo: React.FC<FooterDojoProps> = props => {
         </Link>
       </Flex>
       <Flex justify="center" justifySelf="center" align="flex-start">
-        <Button variant="ghost">
-          <Link href="/dashboard">
+        <Link href="/dashboard">
+          <Button variant="ghost">
             <Box as={CgLogOff} size="1.7em" color="black" />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </Flex>
     </Grid>
   );

@@ -48,8 +48,10 @@ export default authenticated(
     if (req.method === 'GET') {
       const modules = await userModulesColection
         .find({
-          userId: new ObjectId(userId)
+          user_id: new ObjectId(userId)
         })
+        .sort({ updated_at: -1 })
+        .limit(10)
         .toArray();
 
       res.statusCode = 200;

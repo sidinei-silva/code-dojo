@@ -51,7 +51,7 @@ export default authenticated(
       } = req;
 
       const userModule = await userModulesColection.findOne({
-        userId: new ObjectId(userId),
+        user_id: new ObjectId(userId),
         module_slug: moduleSlug
       });
 
