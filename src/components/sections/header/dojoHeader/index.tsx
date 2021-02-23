@@ -17,7 +17,8 @@ import {
   List,
   ListItem,
   ListIcon,
-  Link
+  Link,
+  PseudoBox
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { CgMenuLeftAlt } from 'react-icons/cg';
@@ -88,12 +89,16 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
       {...props}
     >
       <Flex w="100%" justify="flex-start">
-        <Box
+        <PseudoBox
           as={CgMenuLeftAlt}
           ref={listRef}
           onClick={onOpenList}
           size="1.7em"
           color="black"
+          _hover={{
+            borderColor: 'gray.300',
+            cursor: 'pointer'
+          }}
         />
       </Flex>
 
