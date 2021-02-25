@@ -59,7 +59,7 @@ const Header = props => {
         direction={['column', 'column', 'row', 'row']}
       >
         <MenuItems to="/">Home</MenuItems>
-        <MenuItems to="/how">Sobre</MenuItems>
+        {/* <MenuItems to="/how">Sobre</MenuItems> */}
         {/* <MenuItems to="/news">Novidades</MenuItems> */}
         <MenuItems>
           <Flex
