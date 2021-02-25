@@ -60,7 +60,7 @@ const Header = props => {
       >
         <MenuItems to="/">Home</MenuItems>
         <MenuItems to="/how">Sobre</MenuItems>
-        <MenuItems to="/news">Novidades</MenuItems>
+        {/* <MenuItems to="/news">Novidades</MenuItems> */}
         <MenuItems>
           <Flex
             wrap="wrap"

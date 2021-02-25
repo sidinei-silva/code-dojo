@@ -76,7 +76,7 @@ const HeaderLoggedIn = props => {
         display={{ base: 'none', md: 'flex' }}
       >
         <MenuItems to="/dashboard">Home</MenuItems>
-        <MenuItems to="/news">Novidades</MenuItems>
+        {/* <MenuItems to="/news">Novidades</MenuItems> */}
       </Flex>
 
       <Flex
@@ -173,7 +173,7 @@ const HeaderLoggedIn = props => {
               <Divider width="100%" marginY={5} />
               <MenuItems to="/">Home</MenuItems>
               <MenuItems to="/how">Módulos</MenuItems>
-              <MenuItems to="/news">Novidades</MenuItems>
+              {/* <MenuItems to="/news">Novidades</MenuItems> */}
               <Divider width="100%" marginY={5} />
               <MenuItems to="/">Minha Conta</MenuItems>
               <MenuItems to="/how">Minhas Estatisticas</MenuItems>
