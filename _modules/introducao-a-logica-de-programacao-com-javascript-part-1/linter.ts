@@ -140,4 +140,84 @@ linter.defineRule('contains-2-console-with-number', {
   }
 });
 
+linter.defineRule('contains-3-console-with-number-and-boolean', {
+  meta: {
+    type: 'task',
+    docs: {
+      description: 'Escreva 3 console.log() com sua string, number e boolean',
+      category: 'Check Task'
+    }
+  },
+  create(context) {
+    const isConsole = reference => {
+      const id = reference.identifier;
+
+      return id && id.name === 'console';
+    };
+
+    const isLog = reference => {
+      return reference.identifier.parent.property.name === 'log';
+    };
+
+    let containStringInLog = false;
+    let containNumberInLog = false;
+    let containBooleanInLog = false;
+
+    return {
+      'Program:exit': function (node) {
+        const scope = context.getScope();
+        const consoleVar = getVariableByName(scope, 'console');
+
+        const consoles = consoleVar
+          ? consoleVar.references
+          : scope.through.filter(isConsole);
+
+        const consolesLog = consoles.filter(isLog);
+
+        if (consolesLog.length < 3) {
+          context.report(node, 'Você não escreveu os 3 console.log()');
+        }
+
+        consolesLog.map(consoleLog => {
+          console.info(consoleLog.identifier.parent.parent.arguments[0].value);
+          if (
+            typeof consoleLog.identifier.parent.parent.arguments[0].value ===
+            'string'
+          ) {
+            containStringInLog = true;
+          }
+
+          if (
+            typeof consoleLog.identifier.parent.parent.arguments[0].value ===
+            'number'
+          ) {
+            containNumberInLog = true;
+          }
+
+          if (
+            typeof consoleLog.identifier.parent.parent.arguments[0].value ===
+            'boolean'
+          ) {
+            containBooleanInLog = true;
+          }
+
+          return true;
+        });
+
+        if (!containStringInLog) {
+          context.report(node, 'Você não escreveu console.log() com string');
+        }
+
+        if (!containNumberInLog) {
+          context.report(node, 'Você não escreveu console.log() com number');
+        }
+
+        if (!containBooleanInLog) {
+          context.report(node, 'Você não escreveu console.log() com boolean');
+        }
+      }
+    };
+  }
+});
+
 export default linter;
