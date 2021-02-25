@@ -107,7 +107,7 @@ const FormSignUp: React.FC<BoxProps> = boxProps => {
                   Entrar
                 </Button>
               </Flex>
-              <Flex justify="center">
+              {/* <Flex justify="center">
                 <Button
                   variant="link"
                   w="200px"
@@ -117,7 +117,7 @@ const FormSignUp: React.FC<BoxProps> = boxProps => {
                 >
                   Esqueci a senha
                 </Button>
-              </Flex>
+              </Flex> */}
               <Flex justify="center">
                 <Link href="/cadastrar">Não possuo cadastro</Link>
               </Flex>
