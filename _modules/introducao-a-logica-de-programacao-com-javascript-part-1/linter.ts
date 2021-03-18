@@ -292,4 +292,66 @@ linter.defineRule('instance-var-and-assign-string', {
   }
 });
 
+linter.defineRule('instance-const-and-assign-number', {
+  meta: {
+    type: 'task',
+    docs: {
+      description: 'Instancie uma variavel e atribua uma nome',
+      category: 'Check Task'
+    }
+  },
+  create(context) {
+    let containVarWithNameNome = false;
+    return {
+      'Program:exit': function (node) {
+        const { body } = node;
+
+        const variableVar = body.find(
+          contentBody => contentBody.kind === 'const'
+        );
+
+        if (!variableVar) {
+          return context.report(
+            node,
+            'Você não instanciou uma variável com escopo const'
+          );
+        }
+
+        variableVar.declarations.map(declaration => {
+          if (declaration.id.name === 'idade') {
+            containVarWithNameNome = true;
+          }
+          return true;
+        });
+
+        if (!containVarWithNameNome) {
+          context.report(
+            node,
+            'Você não instanciou uma variável chamada idade'
+          );
+        }
+
+        variableVar.declarations.map(declaration => {
+          if (!declaration.init) {
+            return context.report(
+              node,
+              'Você precisa instanciar a variável (idade) já com o numero de sua idade'
+            );
+          }
+
+          if (typeof declaration.init.value !== 'number') {
+            return context.report(
+              node,
+              'A variável idade precisa ser do tipo número'
+            );
+          }
+          return true;
+        });
+
+        return true;
+      }
+    };
+  }
+});
+
 export default linter;
