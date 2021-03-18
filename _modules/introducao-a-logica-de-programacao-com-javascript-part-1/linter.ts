@@ -179,7 +179,6 @@ linter.defineRule('contains-3-console-with-number-and-boolean', {
         }
 
         consolesLog.map(consoleLog => {
-          console.info(consoleLog.identifier.parent.parent.arguments[0].value);
           if (
             typeof consoleLog.identifier.parent.parent.arguments[0].value ===
             'string'
@@ -215,6 +214,79 @@ linter.defineRule('contains-3-console-with-number-and-boolean', {
         if (!containBooleanInLog) {
           context.report(node, 'Você não escreveu console.log() com boolean');
         }
+      }
+    };
+  }
+});
+
+linter.defineRule('instance-var-and-assign-string', {
+  meta: {
+    type: 'task',
+    docs: {
+      description: 'Instancie uma variavel e atribua uma nome',
+      category: 'Check Task'
+    }
+  },
+  create(context) {
+    let containVarWithNameNome = false;
+    return {
+      'Program:exit': function (node) {
+        const { body } = node;
+
+        const variableVar = body.find(
+          contentBody => contentBody.kind === 'var'
+        );
+
+        if (!variableVar) {
+          return context.report(
+            node,
+            'Você não instanciou uma variável com escopo var'
+          );
+        }
+
+        variableVar.declarations.map(declaration => {
+          if (declaration.id.name === 'nome') {
+            containVarWithNameNome = true;
+          }
+          return true;
+        });
+
+        if (!containVarWithNameNome) {
+          context.report(node, 'Você não instanciou uma variável chamada nome');
+        }
+
+        const attributionVar = body.find(
+          contentBody =>
+            contentBody.type === 'ExpressionStatement' &&
+            contentBody.expression.operator === '=' &&
+            contentBody.expression.left.name === 'nome'
+        );
+
+        if (!attributionVar) {
+          variableVar.declarations.map(declaration => {
+            if (declaration.init) {
+              return context.report(
+                node,
+                'Você precisa instanciar a variável sem valor e atribuir seu nome nela na próxima linha.'
+              );
+            }
+            return true;
+          });
+
+          return context.report(
+            node,
+            'Você não atribuiu seu nome na variável (nome)'
+          );
+        }
+
+        if (typeof attributionVar.expression.right.value !== 'string') {
+          return context.report(
+            node,
+            'Você não atribuiu uma string na variável (nome)'
+          );
+        }
+
+        return true;
       }
     };
   }
