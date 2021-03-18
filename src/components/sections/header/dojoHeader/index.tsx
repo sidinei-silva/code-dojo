@@ -221,6 +221,7 @@ const HeaderDojo: React.FC<HeaderDojoProps> = props => {
                         </List>
                       </>
                     ))}
+                    <Divider />
                   </ListItem>
                 ))}
               </List>
